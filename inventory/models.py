@@ -1,6 +1,6 @@
 from django.db import models
 
-class Books(models.Model):
+class Book(models.Model):
     title = models.TextField()
     author = models.TextField()
     isbn = models.TextField()
