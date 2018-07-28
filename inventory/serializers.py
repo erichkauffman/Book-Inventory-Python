@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from inventory.models import Book
 
-class BooksSerializer(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ('title',
@@ -13,11 +13,12 @@ class BooksSerializer(serializers.ModelSerializer):
                   'year_printed',
                   'description',
                   'condition',
-                  'date_puchased',
-                  'location_puchased',
+                  'date_purchased',
+                  'location_purchased',
                   'amount_paid',
                   'sell_price',
                   'site_listed',
                   'shelf_location',
                   'removal_action',
                   'date_removed')
+        #fields = '__all__'
