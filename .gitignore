@@ -1,9 +1,0 @@
-.vscode
-.DS_Store
-__pycache__
-
-settings.py
-manage.py
-db.sqlite3
-
-example.json
