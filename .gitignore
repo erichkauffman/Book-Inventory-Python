@@ -1,2 +1,6 @@
 .vscode
 .DS_Store
+
+config.py
+
+inventory.db
