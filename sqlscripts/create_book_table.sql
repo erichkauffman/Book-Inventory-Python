@@ -11,10 +11,10 @@ condition INT NOT NULL,
 datePurchased DATE NOT NULL,
 locationPurchased TEXT NOT NULL,
 amountPaid INT,
-sell_price INT,
-site_listed INT,
-removal_action BOOLEAN,
-date_removed DATE);
+sellPrice INT,
+siteListed INT,
+removalAction BOOLEAN,
+dateRemoved DATE);
 
 
 
