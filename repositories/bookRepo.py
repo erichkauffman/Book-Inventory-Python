@@ -14,7 +14,27 @@ class BookRepo:
 
     def getListOfBooks(self):
         self.db.execute("SELECT * FROM book")
-        return self.db.fetchall()
+        listOfBookTuples = self.db.fetchall()
+        bookList = []
+        for bookTuple in listOfBookTuples:
+            newBook = Book(bookTuple[0],
+                           bookTuple[1],
+                           bookTuple[2],
+                           bookTuple[3],
+                           bookTuple[4],
+                           bookTuple[5],
+                           bookTuple[6],
+                           bookTuple[7],
+                           bookTuple[8],
+                           bookTuple[9],
+                           bookTuple[10],
+                           bookTuple[11],
+                           bookTuple[12],
+                           bookTuple[13],
+                           bookTuple[14],
+                           bookTuple[15])
+            bookList.append(newBook)
+        return bookList
 
     def createNewBook(self, book: Book):
         bookInsert = (
