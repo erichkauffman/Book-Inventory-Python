@@ -1,6 +1,6 @@
 import sqlite3
 from sqlite3 import Error
-import data.Book
+from data.Book import Book
 
 # Example for proper query creation:
 # db.execute('SELECT * FROM book WHERE Id = ?', 3)
