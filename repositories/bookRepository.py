@@ -8,13 +8,14 @@ from data.Book import Book
 class BookRepository:
     def __init__(self, dbConnection: str):
         try:
-            self.db = sqlite3.connect(dbConnection, check_same_thread=False)
+            self.conn = sqlite3.connect(dbConnection, check_same_thread=False)
+            self.cur = self.conn.cursor()
         except Error as e:
             print(e)
 
     def getListOfBooks(self):
-        self.db.execute("SELECT rowid, * FROM book ORDER BY author, title")
-        listOfBookTuples = self.db.cursor().fetchall()
+        self.cur.execute("SELECT rowid, * FROM book ORDER BY author, title")
+        listOfBookTuples = self.cur.fetchall()
         bookList = []
         for bookTuple in listOfBookTuples:
             newBook = Book(bookTuple[0],
@@ -56,5 +57,5 @@ class BookRepository:
             book.removalAction,
             book.dateRemoved
         )
-        self.db.cursor().execute('INSERT INTO book VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', bookInsert)
-        self.db.commit()
+        self.cur.execute('INSERT INTO book VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', bookInsert)
+        self.conn.commit()
