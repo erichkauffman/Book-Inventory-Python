@@ -1,10 +1,11 @@
 from flask import Flask, request
-from flask_api import status
+import json
 
 from data.Book import Book
 from services.bookService import BookService
 from repositories.bookRepo import BookRepo
 from lib.serializer import serialize
+from lib.status import createStatus
 from config import database
 
 app = Flask(__name__)
@@ -23,25 +24,33 @@ def books():
         return jsonBookList
 
     elif request.method == 'POST':
-        postedBook = Book(
-            0,
-            request.form['title'],
-            request.form['author'],
-            request.form['isbn'],
-            request.form['edition'],
-            request.form['printing'],
-            request.form['cover'],
-            request.form['yearPrinted'],
-            request.form['description'],
-            request.form['condition'],
-            request.form['datePurchased'],
-            request.form['locationPurchased'],
-            request.form['amountPaid'],
-            request.form['sellPrice'],
-            request.form['siteListed'],
-            request.form['removalAction'],
-            request.form['dateRemoved']
-        )
-        bookService.createBook(postedBook)
+        try:
+            jsonreq = request.get_json(force=True)
+        
+            postedBook = Book(
+               0,
+                jsonreq['title'],
+                jsonreq['author'],
+                jsonreq['isbn'],
+                jsonreq['edition'],
+                jsonreq['printing'],
+                jsonreq['cover'],
+                jsonreq['yearPrinted'],
+                jsonreq['description'],
+                jsonreq['condition'],
+                jsonreq['datePurchased'],
+                jsonreq['locationPurchased'],
+                jsonreq['amountPaid'],
+                jsonreq['sellPrice'],
+                jsonreq['siteListed'],
+                jsonreq['removalAction'],
+                jsonreq['dateRemoved']
+            )
+            bookService.createBook(postedBook)
+            return createStatus(200, True)
+        
+        except:
+            return createStatus(500, reason="Something went wrong")
+
     else:
-        return status.HTTP_400_BAD_REQUEST
+        return createStatus(405, reason="That request method is not implemented")
