@@ -8,14 +8,18 @@ from repositories.bookRepo import BookRepo
 from config import database
 
 app = Flask(__name__)
-#TODO: Move db location to config file
+
 bookService = BookService(BookRepo(database))
+
+@app.route('/')
+def index():
+    return("Hello!")
 
 @app.route('/books', methods=['GET', 'POST'])
 def books():
     if request.method == 'GET':
         bookList = bookService.getListOfBooks()
-        jsonBookList = json.dumps(vars(bookList), sort_keys=True, indent=4)
+        jsonBookList = json.dumps([books.__dict__ for books in bookList])
         return jsonBookList
     elif request.method == 'POST':
         postedBook = Book(
