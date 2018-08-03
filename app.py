@@ -28,7 +28,7 @@ def books():
             jsonreq = request.get_json(force=True)
         
             postedBook = Book(
-               0,
+                0,
                 jsonreq['title'],
                 jsonreq['author'],
                 jsonreq['isbn'],
