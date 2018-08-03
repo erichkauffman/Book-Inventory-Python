@@ -21,8 +21,10 @@ def books():
         bookList = bookService.getListOfBooks()
         jsonBookList = json.dumps([books.__dict__ for books in bookList])
         return jsonBookList
+
     elif request.method == 'POST':
         postedBook = Book(
+            0
             request.form['title'],
             request.form['author'],
             request.form['isbn'],
