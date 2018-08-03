@@ -1,8 +1,8 @@
-from repositories.bookRepo import BookRepo
+from repositories.bookRepository import BookRepository
 from data.Book import Book
 
 class BookService:
-    def __init__(self, bookRepository: BookRepo):
+    def __init__(self, bookRepository: BookRepository):
         self.bookRepo = bookRepository
 
     def getListOfBooks(self):

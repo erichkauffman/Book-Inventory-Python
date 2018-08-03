@@ -3,14 +3,14 @@ import json
 
 from data.Book import Book
 from services.bookService import BookService
-from repositories.bookRepo import BookRepo
+from repositories.bookRepository import BookRepository
 from lib.serializer import serialize
 from lib.status import createStatus
 from config import database
 
 app = Flask(__name__)
 
-bookService = BookService(BookRepo(database))
+bookService = BookService(BookRepository(database))
 
 @app.route('/')
 def index():

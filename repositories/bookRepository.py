@@ -5,7 +5,7 @@ from data.Book import Book
 # Example for proper query creation:
 # db.execute('SELECT * FROM book WHERE Id = ?', 3)
 
-class BookRepo:
+class BookRepository:
     def __init__(self, dbConnection: str):
         try:
             self.db = sqlite3.connect(dbConnection, check_same_thread=False)
