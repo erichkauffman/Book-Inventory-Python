@@ -8,13 +8,13 @@ from data.Book import Book
 class BookRepo:
     def __init__(self, dbConnection: str):
         try:
-            self.db = sqlite3.connect(dbConnection, check_same_thread=False).cursor()
+            self.db = sqlite3.connect(dbConnection, check_same_thread=False)
         except Error as e:
             print(e)
 
     def getListOfBooks(self):
         self.db.execute("SELECT rowid, * FROM book ORDER BY author, title")
-        listOfBookTuples = self.db.fetchall()
+        listOfBookTuples = self.db.cursor().fetchall()
         bookList = []
         for bookTuple in listOfBookTuples:
             newBook = Book(bookTuple[0],
@@ -52,7 +52,9 @@ class BookRepo:
             book.locationPurchased,
             book.amountPaid,
             book.sellPrice,
-            book.siteListed
+            book.siteListed,
+            book.removalAction,
+            book.dateRemoved
         )
-        self.db.execute('INSERT INTO book VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', bookInsert)
+        self.db.cursor().execute('INSERT INTO book VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', bookInsert)
         self.db.commit()
