@@ -1,5 +1,6 @@
 class Book:
     def __init__(self,
+                 id: int,
                  title: str,
                  author: str,
                  isbn: str,
@@ -16,6 +17,7 @@ class Book:
                  siteListed: int,
                  removalAction: bool,
                  dateRemoved: str):
+        self.id = id
         self.title = title
         self.author = author
         self.isbn = isbn
