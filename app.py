@@ -1,10 +1,10 @@
 from flask import Flask, request
 from flask_api import status
-import json
 
 from data.Book import Book
 from services.bookService import BookService
 from repositories.bookRepo import BookRepo
+from lib.serializer import serialize
 from config import database
 
 app = Flask(__name__)
@@ -19,12 +19,12 @@ def index():
 def books():
     if request.method == 'GET':
         bookList = bookService.getListOfBooks()
-        jsonBookList = json.dumps([books.__dict__ for books in bookList])
+        jsonBookList = serialize(bookList)
         return jsonBookList
 
     elif request.method == 'POST':
         postedBook = Book(
-            0
+            0,
             request.form['title'],
             request.form['author'],
             request.form['isbn'],
