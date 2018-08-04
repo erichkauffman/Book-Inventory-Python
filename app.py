@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import json
 
 from data.Book import Book
@@ -20,8 +20,8 @@ def index():
 def books():
     if request.method == 'GET':
         bookList = bookService.getListOfBooks()
-        jsonBookList = serialize(bookList)
-        return jsonBookList
+        return jsonify([book.__dict__ for book in bookList])
+        
 
     elif request.method == 'POST':
         try:
@@ -47,10 +47,16 @@ def books():
                 jsonreq['dateRemoved']
             )
             bookService.createBook(postedBook)
-            return createStatus(200, True)
+            res = jsonify({"success": "true"})
+            return res
         
         except:
-            return createStatus(500, reason="Something went wrong")
+            res = jsonify({"success": "false", "reason": "Something went wrong"})
+            res.status_code = 500
+            return res
 
     else:
-        return createStatus(405, reason="That request method is not implemented")
+        res = jsonify({"success": "false", "reason":"That request method is not implemented"})
+        res.status_code = 403
+        return res
+        
