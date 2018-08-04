@@ -5,7 +5,6 @@ from data.Book import Book
 from services.bookService import BookService
 from repositories.bookRepository import BookRepository
 from lib.serializer import serialize
-from lib.status import createStatus
 from config import database
 
 app = Flask(__name__)
