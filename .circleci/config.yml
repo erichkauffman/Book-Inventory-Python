@@ -1,0 +1,8 @@
+version: 2
+jobs:
+  build:
+    docker:
+      circleci/python:3.6.5-jessie
+    steps:
+      - checkout
+      - run: echo "Hello World"
