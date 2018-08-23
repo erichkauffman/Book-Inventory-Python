@@ -1,4 +1,5 @@
 import sqlite3
+import sys
 from sqlite3 import Error
 from data.Book import Book
 
@@ -11,7 +12,7 @@ class BookRepository:
             self.conn = sqlite3.connect(dbConnection, check_same_thread=False)
             self.cur = self.conn.cursor()
         except Error as e:
-            print(e)
+            print(e, file=sys.stderr)
 
     def getListOfBooks(self):
         self.cur.execute("SELECT rowid, * FROM book ORDER BY author, title")

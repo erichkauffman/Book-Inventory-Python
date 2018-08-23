@@ -10,6 +10,8 @@ RUN pip install -r requirements.txt
 
 RUN python -m pytest
 
+EXPOSE 5000
+
 ENTRYPOINT [ "python" ]
 
 CMD [ "app.py" ]

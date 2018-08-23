@@ -1,1 +1,1 @@
-database = "./path/to/database.db"
+database = "path/to/database.db"
