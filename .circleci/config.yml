@@ -1,7 +1,13 @@
 version: 2
 jobs:
   build:
+    docker:
+      - image: circleci/python:3.6.5-jessie
     steps:
       - checkout
-      - run: cd src/
-      - run: python -m pytest
+      - run: 
+        command: |
+          cd src/
+      - run: 
+        command: | 
+          python -m pytest
