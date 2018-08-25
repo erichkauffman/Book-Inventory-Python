@@ -5,4 +5,13 @@ jobs:
       - image: circleci/python:3.6.5-jessie
     steps:
       - checkout
-      - run: echo "Hello World"
+      - run:
+          command: |
+            mkdir -p ./venv
+            virtualenv ./venv
+            . ./venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+            cd src/
+            cp config.example.py ./config.py
+            python -m pytest
