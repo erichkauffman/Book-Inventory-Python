@@ -5,9 +5,13 @@ jobs:
       - image: circleci/python:3.6.5-jessie
     steps:
       - checkout
-      - run: python3 -m venv venv
-      - run: . venv/bin/activiate
-      - run: pip3 install --upgrade pip
-      - run: pip3 install -r requirements.txt
-      - run: cd src/
-      - run: python -m pytest
+      - run:
+        name: Install and Run tests
+        command: |
+          mkdir -p ./venv
+          virtualenv ./venv
+          ./venv/bin/activate
+          pip install --upgrade pip
+          pip3 install -r requirements.txt
+          cd src/
+          python -m pytest
