@@ -15,3 +15,11 @@ jobs:
             cd src/
             cp config.example.py ./config.py
             python -m pytest
+  
+  deploy:
+    machine: true
+    steps:
+      - checkout
+      - run: 
+          command: |
+            echo 'deploying on master'
