@@ -6,11 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
-        command: |
-          mkdir -p ./venv
-          virtualenv ./venv
-          ./venv/bin/activate
-          pip install --upgrade pip
-          pip3 install -r requirements.txt
-          cd src/
-          python -m pytest
+          command: |
+            mkdir -p ./venv
+            virtualenv ./venv
+            ./venv/bin/activate
+            pip install --upgrade pip
+            pip3 install -r requirements.txt
+            cd src/
+            python -m pytest
