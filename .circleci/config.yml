@@ -6,7 +6,6 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install and Run tests
         command: |
           mkdir -p ./venv
           virtualenv ./venv
