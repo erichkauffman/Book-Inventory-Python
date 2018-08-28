@@ -25,4 +25,4 @@ class Item:
         self.sellPrice = sellPrice
         self.siteListed = siteListed
         self.removalAction = removalAction
-        slef.dateRemoved = dateRemoved
+        self.dateRemoved = dateRemoved
