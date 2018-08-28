@@ -1,4 +1,6 @@
-class Book:
+from Item import Item
+
+class Book(Item):
     def __init__(self,
                  id: int,
                  title: str,
@@ -17,20 +19,20 @@ class Book:
                  siteListed: int,
                  removalAction: bool,
                  dateRemoved: str):
-        self.id = id
-        self.title = title
+        super().__init__(id,
+                         title, 
+                         isbn,
+                         yearPrinted,
+                         description,
+                         condition,
+                         datePurchased,
+                         locationPurchased,
+                         amountPaid,
+                         sellPrice,
+                         siteListed,
+                         removalAction,
+                         dateRemoved)
         self.author = author
-        self.isbn = isbn
         self.edition = edition
         self.printing = printing
         self.cover = cover
-        self.yearPrinted = yearPrinted
-        self.description = description
-        self.condition = condition
-        self.datePurchased = datePurchased
-        self.locationPurchased = locationPurchased
-        self.amountPaid = amountPaid
-        self.sellPrice = sellPrice
-        self.siteListed = siteListed
-        self.removalAction = removalAction
-        self.dateRemoved = dateRemoved
