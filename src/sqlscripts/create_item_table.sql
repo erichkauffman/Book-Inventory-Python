@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS item (
-itemId INT PRIMARY KEY,
+itemId INTEGER NOT NULL PRIMARY KEY,
 title TEXT NOT NULL,
 upc TEXT NOT NULL,
-yearPrinted INT,
+year INT,
 description TEXT NOT NULL,
 condition INT NOT NULL,
 datePurchased DATE NOT NULL,
