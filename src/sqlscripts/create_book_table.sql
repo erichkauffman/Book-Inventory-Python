@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "book" (
+CREATE TABLE IF NOT EXISTS book (
 author TEXT NOT NULL,
 edition INT NOT NULL,
 printing INT,
