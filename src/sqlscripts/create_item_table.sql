@@ -1,4 +1,5 @@
 CREATE TABLE IF NOT EXISTS "item"(
+itemId INT PRIMARY KEY,
 title TEXT NOT NULL,
 upc TEXT NOT NULL,
 yearPrinted INT,
