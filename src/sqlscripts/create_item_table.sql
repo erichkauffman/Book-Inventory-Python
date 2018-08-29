@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS "item"(
 title TEXT NOT NULL,
-isbn TEXT NOT NULL,
+upc TEXT NOT NULL,
 yearPrinted INT,
 description TEXT NOT NULL,
 condition INT NOT NULL,
