@@ -6,8 +6,7 @@ class Book:
                  author: str,
                  edition: int,
                  printing: int,
-                 cover: int,
-                 dateRemoved: str):
+                 cover: int):
         self.item = item
         self.author = author
         self.edition = edition
