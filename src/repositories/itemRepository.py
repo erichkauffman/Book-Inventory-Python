@@ -1,14 +1,15 @@
 import sqlite3
 import sys
-from sqlite3 import Error
+
+from lib.database import item_factory
 
 class ItemRepository:
-    def __init__(self, dbConnection: str, table="item"):
-        self.dbConnection = dbConnection
-        self.table = table
-    
-    def getListOfItems(self):
-        conn = sqlite3.connect(self.dbConnection)
-        cursor = conn.cursor()
-        cursor.execute('SELECT rowid, * FROM ? ORDER BY title', self.table)
-        listOfItemTuples = cursor.fetchall()
+	def __init__(self, dbConnection: str):
+		self.dbConnection = dbConnection
+
+	def getListOfItems(self):
+		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = item_factory
+		cursor = conn.cursor()
+		cursor.execute('SELECT * FROM item ORDER BY title')
+		return cursor.fetchall()
