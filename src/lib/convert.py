@@ -23,7 +23,6 @@ def bookAssembler(dictionary):
 		item = itemAssembler(dictionary['item'])
 	else:
 		item = itemAssembler(dictionary)
-	import sys
 	return Book(
 		item,
 		dictionary['author'],
