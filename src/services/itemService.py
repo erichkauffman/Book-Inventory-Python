@@ -7,6 +7,6 @@ class ItemService:
 
 	def getListOfItems(self):
 		return self.itemRepo.getListOfItems()
-	
+
 	def createItem(self, item: Item):
 		return self.itemRepo.createNewItem(item)
