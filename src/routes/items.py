@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 import jsonpickle
 
-from data.Item import Item
 from services.itemService import ItemService
 from repositories.itemRepository import ItemRepository
 from lib.convert import itemAssembler
