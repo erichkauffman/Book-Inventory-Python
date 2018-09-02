@@ -1,6 +1,6 @@
 class Item:
     def __init__(self,
-                 id: int,
+                 itemId: int,
                  title: str,
                  upc: str,
                  year: int,
@@ -13,7 +13,7 @@ class Item:
                  siteListed: int,
                  removalAction: bool,
                  dateRemoved: str):
-        self.id = id
+        self.itemId = itemId
         self.title = title
         self.upc = upc
         self.year = year
