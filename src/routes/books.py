@@ -1,12 +1,10 @@
 from flask import Blueprint, request
 import jsonpickle
 
-from data.Book import Book
 from services.bookService import BookService
 from services.itemService import ItemService
 from repositories.bookRepository import BookRepository
 from repositories.itemRepository import ItemRepository
-from lib.serializer import serialize
 from lib.convert import bookAssembler
 from config import database
 
