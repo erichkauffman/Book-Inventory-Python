@@ -14,7 +14,10 @@ class BookRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = book_factory
 		cursor = conn.cursor()
-		cursor.execute('SELECT * FROM book INNER JOIN item ON book.itemId = item.itemId ORDER BY book.author, item.title')
+		cursor.execute('''SELECT *
+						  FROM book
+						  INNER JOIN item ON book.itemId = item.itemId
+						  ORDER BY book.author, item.title''')
 		return cursor.fetchall()
 
 	def createNewBook(self, book: Book):
@@ -27,5 +30,7 @@ class BookRepository:
  		)
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
-		cursor.execute('INSERT INTO book (author, edition, printing, cover, itemId) VALUES(?,?,?,?,?)', bookInsert)
+		cursor.execute('''INSERT INTO book
+						  (author, edition, printing, cover, itemId)
+						  VALUES(?,?,?,?,?)''', bookInsert)
 		conn.commit()

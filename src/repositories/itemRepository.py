@@ -1,5 +1,4 @@
 import sqlite3
-import sys
 
 from data.Item import Item
 
@@ -15,7 +14,7 @@ class ItemRepository:
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM item ORDER BY title')
 		return cursor.fetchall()
-	
+
 	def createNewItem(self, item: Item):
 		itemInsert = (
 			item.title,
