@@ -1,6 +1,3 @@
-import sqlite3
-from data.Item import Item
-from data.Book import Book
 from lib.convert import itemAssembler, bookAssembler
 
 def item_factory(cursor, row):
