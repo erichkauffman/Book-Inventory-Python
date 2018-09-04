@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response
 import jsonpickle
 
 from services.bookService import BookService
@@ -17,7 +17,10 @@ bookRoutes = Blueprint("books", __name__)
 def books():
 	if request.method == 'GET':
 		bookList = bookService.getListOfBooks()
-		return jsonpickle.encode(bookList)
+		jsonData = jsonpickle.encode(bookList)
+		res = make_response(jsonData)
+		res.headers['Content-Type'] = 'application/json'
+		return res
 	elif request.method == 'POST':
 		jsonreq = request.get_json(force=True)
 		postedBook = bookAssembler(jsonreq)
