@@ -40,3 +40,9 @@ class ItemRepository:
 					itemInsert)
 		conn.commit()
 		return cursor.lastrowid
+
+	def deleteItem(self, itemId: int):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('DELETE FROM item WHERE itemId = ?', (itemId,))
+		conn.commit()
