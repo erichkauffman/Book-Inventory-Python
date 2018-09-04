@@ -1,11 +1,11 @@
-from flask import Blueprint, request, make_response
-import jsonpickle
+from flask import Blueprint, request
 
 from services.bookService import BookService
 from services.itemService import ItemService
 from repositories.bookRepository import BookRepository
 from repositories.itemRepository import ItemRepository
 from lib.convert import bookAssembler
+from lib.response import makeJsonResponse
 from config import database
 
 itemService = ItemService(ItemRepository(database))
@@ -17,15 +17,12 @@ bookRoutes = Blueprint("books", __name__)
 def books():
 	if request.method == 'GET':
 		bookList = bookService.getListOfBooks()
-		jsonData = jsonpickle.encode(bookList)
-		res = make_response(jsonData)
-		res.headers['Content-Type'] = 'application/json'
-		return res
+		return makeJsonResponse(bookList)
 	elif request.method == 'POST':
 		jsonreq = request.get_json(force=True)
 		postedBook = bookAssembler(jsonreq)
 		bookService.createBook(postedBook)
-		res = jsonpickle.encode({"success": "true"})
+		res = makeJsonResponse({"success": "true"})
 		return res
 
 #        except:
@@ -34,7 +31,7 @@ def books():
 #            return res
 
 	else:
-		res = jsonpickle.encode({"success": "false", "reason":"That request method is not implemented"})
+		res = makeJsonResponse({"success": "false", "reason":"That request method is not implemented"})
 		res.status_code = 403
 		return res
  
