@@ -20,3 +20,9 @@ def items():
 		postedItem = itemAssembler(jsonreq)
 		ItemService.createItem(postedItem)
 		return makeJsonResponse({"success": "true"})
+
+@itemRoutes.route('/<int:itemId>/', methods=['DELETE'])
+def itemById(itemId):
+	if request.method == 'DELETE':
+		ItemService.deleteItem(itemId)
+		return makeJsonResponse({"success": "true"})
