@@ -1,4 +1,3 @@
-import pytest
 from unittest import mock
 
 from app import app
@@ -6,7 +5,7 @@ from data.Book import Book
 from data.Item import Item
 
 @mock.patch('routes.books.BookService.getListOfBooks')
-def test_book_route_when_a_get_request_is_used(mock_getListOfBooks):
+def test_book_route_when_a_get_request_is_made(mock_getListOfBooks):
     testApp = app.test_client()
     mock_getListOfBooks.return_value = [Book(
 		Item(
@@ -58,7 +57,7 @@ def test_book_route_when_a_get_request_is_used(mock_getListOfBooks):
 
 @mock.patch('routes.books.BookService.createBook')
 @mock.patch('lib.convert.bookAssembler')
-def test_book_route_when_a_post_request_is_used(mock_createBook, mock_bookAssembler):
+def test_book_route_when_a_post_request_is_made(mock_createBook, mock_bookAssembler):
     testApp = app.test_client()
 
     result = testApp.post('/books/',
