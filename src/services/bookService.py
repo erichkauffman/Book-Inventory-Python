@@ -14,3 +14,7 @@ class BookService:
 		itemId = self.itemService.createItem(book.item)
 		book.item.itemId = itemId
 		self.bookRepo.createNewBook(book)
+
+	def deleteBook(self, itemId: int):
+		self.bookRepo.deleteBook(itemId)
+		self.itemService.deleteItem(itemId)

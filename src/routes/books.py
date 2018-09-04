@@ -22,8 +22,7 @@ def books():
 		jsonreq = request.get_json(force=True)
 		postedBook = bookAssembler(jsonreq)
 		bookService.createBook(postedBook)
-		res = makeJsonResponse({"success": "true"})
-		return res
+		return makeJsonResponse({"success": "true"})
 
 #        except:
 #            res = jsonify({"success": "false", "reason": "Something went wrong"})
@@ -34,4 +33,9 @@ def books():
 		res = makeJsonResponse({"success": "false", "reason":"That request method is not implemented"})
 		res.status_code = 403
 		return res
- 
+
+@bookRoutes.route('/<int:itemId>/', methods=['DELETE'])
+def bookById(itemId):
+	if request.method == 'DELETE':
+		bookService.deleteBook(itemId)
+		return makeJsonResponse({"success": "true"})

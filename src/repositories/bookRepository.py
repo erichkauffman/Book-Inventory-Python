@@ -34,3 +34,9 @@ class BookRepository:
 						  (author, edition, printing, cover, itemId)
 						  VALUES(?,?,?,?,?)''', bookInsert)
 		conn.commit()
+
+	def deleteBook(self, itemId: int):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('DELETE FROM book WHERE itemId = ?', (itemId,))
+		conn.commit()
