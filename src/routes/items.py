@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from sqlite3 import IntegrityError
 
 from services.itemService import ItemService
 from repositories.itemRepository import ItemRepository
@@ -17,10 +18,24 @@ def items():
 		itemList = ItemService.getListOfItems()
 		return makeJsonResponse(itemList)
 	elif request.method == 'POST':
-		jsonreq = request.get_json(force=True)
-		postedItem = itemAssembler(jsonreq)
-		ItemService.createItem(postedItem)
-		return makeJsonResponse({"success": True})
+		try:
+			jsonreq = request.get_json(force=True)
+			postedItem = itemAssembler(jsonreq)
+			ItemService.createItem(postedItem)
+			return makeJsonResponse({"success": True})
+		except KeyError as e:
+			return makeJsonResponse({"success": False, "message": f"Could not find {str(e)} key in received data"}), 400
+		except IntegrityError as e:
+			messageString = str(e).split()
+			if (messageString[0] == "NOT" and
+			   messageString[1] == "NULL" and
+			   messageString[2] == "constraint" and
+			   messageString[3] == "failed:"):
+			   failedKey = messageString[-1].split('.')
+			   return makeJsonResponse({"success": False, "message": f"'{failedKey[-1]}' must not be null"}), 400
+
+			return makeJsonResponse({"success": False, "message": "Something went wrong, please make sure your data is correct"}), 400
+
 
 @itemRoutes.route('/<int:itemId>/', methods=['DELETE'])
 def itemById(itemId):
