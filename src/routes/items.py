@@ -4,6 +4,7 @@ from services.itemService import ItemService
 from repositories.itemRepository import ItemRepository
 from lib.convert import itemAssembler
 from lib.response import makeJsonResponse
+from lib.exceptions import DatabaseIndexError
 from config import database
 
 ItemService = ItemService(ItemRepository(database))
@@ -19,10 +20,13 @@ def items():
 		jsonreq = request.get_json(force=True)
 		postedItem = itemAssembler(jsonreq)
 		ItemService.createItem(postedItem)
-		return makeJsonResponse({"success": "true"})
+		return makeJsonResponse({"success": True})
 
 @itemRoutes.route('/<int:itemId>/', methods=['DELETE'])
 def itemById(itemId):
 	if request.method == 'DELETE':
-		ItemService.deleteItem(itemId)
-		return makeJsonResponse({"success": "true"})
+		try:
+			ItemService.deleteItem(itemId)
+			return makeJsonResponse({"success": True})
+		except DatabaseIndexError as e:
+			return makeJsonResponse({"success": False, "message": str(e)}), 404

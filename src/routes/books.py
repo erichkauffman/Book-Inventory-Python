@@ -6,6 +6,7 @@ from repositories.bookRepository import BookRepository
 from repositories.itemRepository import ItemRepository
 from lib.convert import bookAssembler
 from lib.response import makeJsonResponse
+from lib.exceptions import DatabaseIndexError
 from config import database
 
 itemService = ItemService(ItemRepository(database))
@@ -22,10 +23,13 @@ def books():
 		jsonreq = request.get_json(force=True)
 		postedBook = bookAssembler(jsonreq)
 		bookService.createBook(postedBook)
-		return makeJsonResponse({"success": "true"})
+		return makeJsonResponse({"success": True})
 
 @bookRoutes.route('/<int:itemId>/', methods=['DELETE'])
 def bookById(itemId):
 	if request.method == 'DELETE':
-		bookService.deleteBook(itemId)
-		return makeJsonResponse({"success": "true"})
+		try:
+			bookService.deleteBook(itemId)
+			return makeJsonResponse({"success": True})
+		except DatabaseIndexError as e:
+			return makeJsonResponse({"success": False, "message": str(e)}), 404
