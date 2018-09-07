@@ -24,16 +24,6 @@ def books():
 		bookService.createBook(postedBook)
 		return makeJsonResponse({"success": "true"})
 
-#        except:
-#            res = jsonify({"success": "false", "reason": "Something went wrong"})
-#            res.status_code = 500
-#            return res
-
-	else:
-		res = makeJsonResponse({"success": "false", "reason":"That request method is not implemented"})
-		res.status_code = 403
-		return res
-
 @bookRoutes.route('/<int:itemId>/', methods=['DELETE'])
 def bookById(itemId):
 	if request.method == 'DELETE':
