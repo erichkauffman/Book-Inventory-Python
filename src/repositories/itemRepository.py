@@ -3,6 +3,7 @@ import sqlite3
 from data.Item import Item
 
 from lib.database import item_factory
+from lib.exceptions import DatabaseIndexError
 
 class ItemRepository:
 	def __init__(self, dbConnection: str):
@@ -45,4 +46,7 @@ class ItemRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
 		cursor.execute('DELETE FROM item WHERE itemId = ?', (itemId,))
+		count = cursor.rowcount
 		conn.commit()
+		if not count:
+			raise DatabaseIndexError(f'Item with itemId = {itemId} does not exist in database')

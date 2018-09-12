@@ -2,6 +2,7 @@ import sqlite3
 
 from data.Book import Book
 from lib.database import book_factory
+from lib.exceptions import DatabaseIndexError
 
 # Example for proper query creation:
 # db.execute('SELECT * FROM book WHERE Id = ?', 3)
@@ -39,4 +40,7 @@ class BookRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
 		cursor.execute('DELETE FROM book WHERE itemId = ?', (itemId,))
+		count = cursor.rowcount
 		conn.commit()
+		if not count:
+			raise DatabaseIndexError(f"Book with itemId = {itemId} does not exist in database")
