@@ -1,1 +1,0 @@
-database = "path/to/database.db"
