@@ -50,3 +50,12 @@ class ItemRepository:
 		conn.commit()
 		if not count:
 			raise DatabaseIndexError(f'Item with itemId = {itemId} does not exist in database')
+
+	def updateRemoveAction(self, itemId: int, status: bool):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute("UPDATE item SET removalAction = ? WHERE itemId = ?", (status, itemId))
+		count = cursor.rowcount
+		conn.commit()
+		if not count:
+			raise DatabaseIndexError(f'Item with itemId = {itemId} does not exist in database')

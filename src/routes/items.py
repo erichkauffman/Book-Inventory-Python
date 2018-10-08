@@ -36,12 +36,27 @@ def items():
 
 			return makeJsonResponse({"success": False, "message": "Something went wrong, please make sure your data is correct"}), 400
 
-
 @itemRoutes.route('/<int:itemId>/', methods=['DELETE'])
 def itemById(itemId):
 	if request.method == 'DELETE':
 		try:
 			ItemService.deleteItem(itemId)
+			return makeJsonResponse({"success": True})
+		except DatabaseIndexError as e:
+			return makeJsonResponse({"success": False, "message": str(e)}), 404
+
+@itemRoutes.route('/<int:itemId>/<string:status>', methods=['PUT'])
+def updateRemoveAction(itemId, status):
+	if request.method == 'PUT':
+		if status.lower() == 'true':
+			boolStatus = True
+		elif status.lower() == 'false':
+			boolStatus = False
+		else:
+			return makeJsonResponse({"success": False, "message": f"Cannot understand {status}"}), 400
+
+		try:
+			ItemService.updateRemoveAction(itemId, boolStatus)
 			return makeJsonResponse({"success": True})
 		except DatabaseIndexError as e:
 			return makeJsonResponse({"success": False, "message": str(e)}), 404
