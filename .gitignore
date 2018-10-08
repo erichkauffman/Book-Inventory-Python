@@ -5,6 +5,5 @@ __pycache__
 .pytest_cache
 .pylintrc
 .env
-config.py
 
 inventory.db
