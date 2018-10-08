@@ -7,8 +7,8 @@ from services.itemService import ItemService
 from repositories.bookRepository import BookRepository
 
 def test_getting_a_list_of_books():
-	mockRepo = mock.create_autospec(BookRepository)
 	mockItemService = mock.create_autospec(ItemService)
+	mockRepo = mock.create_autospec(BookRepository)
 	mockRepo.getListOfBooks.return_value = [Book(
 		Item(
         	5,
