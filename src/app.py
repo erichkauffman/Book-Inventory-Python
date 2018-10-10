@@ -1,9 +1,12 @@
 from flask import Flask
+import flask_cors
+
 from routes.books import bookRoutes
 from routes.items import itemRoutes
 from lib.response import makeJsonResponse
 
 app = Flask(__name__)
+flask_cors.CORS(app=app)
 
 @app.route('/')
 def index():
