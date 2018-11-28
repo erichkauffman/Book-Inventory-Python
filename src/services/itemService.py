@@ -11,6 +11,9 @@ class ItemService:
 	def createItem(self, item: Item):
 		return self.itemRepo.createNewItem(item)
 
+	def getSellableItems(self):
+		return self.itemRepo.getSellableItems()
+
 	def deleteItem(self, itemId: int):
 		self.itemRepo.deleteItem(itemId)
 

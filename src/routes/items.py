@@ -36,6 +36,12 @@ def items():
 
 			return makeJsonResponse({"success": False, "message": "Something went wrong, please make sure your data is correct"}), 400
 
+@itemRoutes.route('/sellable/', methods=['GET'])
+def itemsSellable():
+	if request.method == 'GET':
+		itemList = ItemService.getSellableItems()
+		return makeJsonResponse(itemList)
+
 @itemRoutes.route('/<int:itemId>/', methods=['DELETE'])
 def itemById(itemId):
 	if request.method == 'DELETE':

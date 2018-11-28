@@ -42,6 +42,13 @@ class ItemRepository:
 		conn.commit()
 		return cursor.lastrowid
 
+	def getSellableItems(self):
+		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = item_factory
+		cursor = conn.cursor()
+		cursor.execute('SELECT * FROM item WHERE dateRemoved IS NULL ORDER BY title')
+		return cursor.fetchall()
+
 	def deleteItem(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()

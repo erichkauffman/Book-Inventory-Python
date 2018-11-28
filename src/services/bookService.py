@@ -15,6 +15,9 @@ class BookService:
 		book.item.itemId = itemId
 		self.bookRepo.createNewBook(book)
 
+	def getSellableBooks(self):
+		return self.bookRepo.getSellableBooks()
+
 	def deleteBook(self, itemId: int):
 		self.bookRepo.deleteBook(itemId)
 		self.itemService.deleteItem(itemId)
