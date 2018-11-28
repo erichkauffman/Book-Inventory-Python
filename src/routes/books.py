@@ -39,6 +39,12 @@ def books():
 
 			return makeJsonResponse({"success": False, "message": "Something went wrong, please make sure your data is correct"}), 400
 
+@bookRoutes.route('/sellable/', methods=['GET'])
+def booksSellable():
+	if request.method == 'GET':
+		bookList = bookService.getSellableBooks()
+		return makeJsonResponse(bookList)
+
 @bookRoutes.route('/<int:itemId>/', methods=['DELETE'])
 def bookById(itemId):
 	if request.method == 'DELETE':

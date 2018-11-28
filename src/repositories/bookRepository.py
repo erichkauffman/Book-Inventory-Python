@@ -36,6 +36,17 @@ class BookRepository:
 						  VALUES(?,?,?,?,?)''', bookInsert)
 		conn.commit()
 
+	def getSellableBooks(self):
+		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = book_factory
+		cursor = conn.cursor()
+		cursor.execute('''SELECT *
+						  FROM book
+						  INNER JOIN item ON book.itemId = item.itemId
+						  WHERE item.dateRemoved IS NULL
+						  ORDER BY book.author, item.title''')
+		return cursor.fetchall()
+
 	def deleteBook(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
