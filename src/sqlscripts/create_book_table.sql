@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS book (
+author TEXT NOT NULL,
+edition INT NOT NULL,
+printing INT,
+cover INT NOT NULL,
+itemId INTEGER NOT NULL,
+FOREIGN KEY (itemId) REFERENCES item(itemId));

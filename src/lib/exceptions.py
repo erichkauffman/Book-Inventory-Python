@@ -1,0 +1,3 @@
+
+class DatabaseIndexError(Exception):
+	pass

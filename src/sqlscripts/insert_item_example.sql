@@ -1,0 +1,26 @@
+INSERT INTO item (
+	title,
+	upc,
+	year,
+	description,
+	condition,
+	datePurchased,
+	locationPurchased,
+	amountPaid,
+	sellPrice,
+	siteListed,
+	removalAction,
+	dateRemoved)
+VALUES (
+"Cracking the Coding Interview",
+9870984782857,
+2015,
+"A very good book for praciticing algorithms",
+2,
+"2016-12-6",
+"Online",
+2000,
+1200,
+1,
+null,
+null);

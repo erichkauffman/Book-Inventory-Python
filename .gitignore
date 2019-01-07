@@ -1,3 +1,8 @@
 .vscode
 .DS_Store
 venv
+__pycache__
+.pytest_cache
+.pylintrc
+.env
+inventory.db
