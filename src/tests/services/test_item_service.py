@@ -18,6 +18,7 @@ def test_getting_a_list_of_items():
         2000,
        	1200,
         1,
+		"FBA",
         None,
         None
 	)]
@@ -36,6 +37,7 @@ def test_getting_a_list_of_items():
 	assert returnedItem.locationPurchased == "Online"
 	assert returnedItem.amountPaid == 2000
 	assert returnedItem.sellPrice == 1200
+	assert returnedItem.shelfLocation == "FBA"
 	assert returnedItem.siteListed == 1
 	assert returnedItem.removalAction is None
 	assert returnedItem.dateRemoved is None

@@ -9,6 +9,7 @@ INSERT INTO item (
 	amountPaid,
 	sellPrice,
 	siteListed,
+	shelfLocation,
 	removalAction,
 	dateRemoved)
 VALUES (
@@ -22,5 +23,6 @@ VALUES (
 2000,
 1200,
 1,
+"FBA",
 null,
 null);

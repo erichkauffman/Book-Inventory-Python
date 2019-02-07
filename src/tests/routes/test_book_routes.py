@@ -20,6 +20,7 @@ def test_book_route_when_a_get_request_is_made(mock_getListOfBooks):
 			2000,
 			1200,
 			1,
+			"FBA",
 			None,
 			None
 		),
@@ -47,6 +48,7 @@ def test_book_route_when_a_get_request_is_made(mock_getListOfBooks):
 	assert jsonResult['item']['amountPaid'] == 2000
 	assert jsonResult['item']['sellPrice'] == 1200
 	assert jsonResult['item']['siteListed'] == 1
+	assert jsonResult['item']['shelfLocation'] == "FBA"
 	assert jsonResult['item']['removalAction'] is None
 	assert jsonResult['item']['dateRemoved'] is None
 	assert jsonResult['author'] == "Gayle Laakmann McDowell"
@@ -73,6 +75,7 @@ def test_book_route_when_a_post_request_is_made(mock_createBook, mock_bookAssemb
 								'removalAction': None,
 								'sellPrice': 1200,
 								'siteListed': 1,
+								'shelfLocation': 'FBA',
 								'title': 'Cracking the Coding Interview',
 								'year': 2015
 							  },

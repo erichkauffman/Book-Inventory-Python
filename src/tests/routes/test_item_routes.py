@@ -2,6 +2,7 @@ from unittest import mock
 
 from app import app
 from data.Item import Item
+
 @mock.patch('routes.items.ItemService.getListOfItems')
 def test_item_route_when_a_get_request_is_made(mock_getListOfItems):
 	testApp = app.test_client()
@@ -17,6 +18,7 @@ def test_item_route_when_a_get_request_is_made(mock_getListOfItems):
         2000,
         1200,
 		1,
+		"FBA",
 		None,
 		None
 	)]
@@ -38,6 +40,7 @@ def test_item_route_when_a_get_request_is_made(mock_getListOfItems):
 	assert jsonResult['locationPurchased'] == "Online"
 	assert jsonResult['amountPaid'] == 2000
 	assert jsonResult['sellPrice'] == 1200
+	assert jsonResult['shelfLocation'] == "FBA"
 	assert jsonResult['siteListed'] == 1
 	assert jsonResult['removalAction'] is None
 	assert jsonResult['dateRemoved'] is None
@@ -59,6 +62,7 @@ def test_item_route_when_a_post_request_is_made(mock_createItem, mock_itemAssemb
             'locationPurchased': 'Online',
             'removalAction': None,
             'sellPrice': 1200,
+			'shelfLocation': 'FBA',
             'siteListed': 1,
             'title': 'Cracking the Coding Interview',
             'year': 2015
