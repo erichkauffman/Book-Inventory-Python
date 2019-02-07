@@ -13,6 +13,7 @@ def test_item_assembler():
 		'locationPurchased': 'Online',
 		'removalAction': None,
 		'sellPrice': 1200,
+		'shelfLocation': 'FBA',
 		'siteListed': 1,
 		'title': 'Cracking the Coding Interview',
 		'year': 2015
@@ -28,6 +29,7 @@ def test_item_assembler():
 	assert itemObject.locationPurchased == "Online"
 	assert itemObject.amountPaid == 2000
 	assert itemObject.sellPrice == 1200
+	assert itemObject.shelfLocation == 'FBA'
 	assert itemObject.siteListed == 1
 	assert itemObject.removalAction is None
 	assert itemObject.dateRemoved is None
