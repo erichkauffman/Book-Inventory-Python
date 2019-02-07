@@ -10,5 +10,6 @@ locationPurchased TEXT NOT NULL,
 amountPaid INT,
 sellPrice INT,
 siteListed INT,
+shelfLocation TEXT NOT NULL,
 removalAction BOOLEAN,
 dateRemoved DATE);

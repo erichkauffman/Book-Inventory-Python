@@ -3,7 +3,7 @@ INSERT INTO book (
 	edition,
 	printing,
 	cover,
-	item
+	itemId
 )
 VALUES (
 	"Gayle Laakmann McDowell",
