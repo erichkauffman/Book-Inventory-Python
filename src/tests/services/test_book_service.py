@@ -22,6 +22,7 @@ def test_getting_a_list_of_books():
         	2000,
        		1200,
         	1,
+			"FBA",
         	None,
         	None
 		),
@@ -50,6 +51,7 @@ def test_getting_a_list_of_books():
 	assert returnedBook.item.locationPurchased == "Online"
 	assert returnedBook.item.amountPaid == 2000
 	assert returnedBook.item.sellPrice == 1200
+	assert returnedBook.item.shelfLocation == "FBA"
 	assert returnedBook.item.siteListed == 1
 	assert returnedBook.item.removalAction is None
 	assert returnedBook.item.dateRemoved is None

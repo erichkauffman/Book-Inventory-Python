@@ -48,6 +48,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 			'locationPurchased': 'Online',
 			'removalAction': None,
 			'sellPrice': 1200,
+			'shelfLocation': 'FBA',
 			'siteListed': 1,
 			'title': 'Cracking the Coding Interview',
 			'year': 2015
@@ -72,6 +73,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 	assert bookObject.item.locationPurchased == "Online"
 	assert bookObject.item.amountPaid == 2000
 	assert bookObject.item.sellPrice == 1200
+	assert bookObject.item.shelfLocation == 'FBA'
 	assert bookObject.item.siteListed == 1
 	assert bookObject.item.removalAction is None
 	assert bookObject.item.dateRemoved is None
@@ -88,6 +90,7 @@ def test_book_assembler_when_item_is_not_a_subdictionary():
 		'locationPurchased': 'Online',
 		'removalAction': None,
 		'sellPrice': 1200,
+		'shelfLocation': 'FBA',
 		'siteListed': 1,
 		'title': 'Cracking the Coding Interview',
 		'year': 2015,
@@ -112,6 +115,7 @@ def test_book_assembler_when_item_is_not_a_subdictionary():
 	assert bookObject.item.locationPurchased == "Online"
 	assert bookObject.item.amountPaid == 2000
 	assert bookObject.item.sellPrice == 1200
+	assert bookObject.item.shelfLocation == 'FBA'
 	assert bookObject.item.siteListed == 1
 	assert bookObject.item.removalAction is None
 	assert bookObject.item.dateRemoved is None
