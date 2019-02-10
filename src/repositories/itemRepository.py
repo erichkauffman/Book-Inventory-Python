@@ -35,9 +35,9 @@ class ItemRepository:
 		cursor = conn.cursor()
 		cursor.execute('''INSERT INTO
 							item (title, upc, year, description, condition, datePurchased,
-								  locationPurchased, amountPaid, sellPrice, siteListed, 
+								  locationPurchased, consignment, amountPaid, sellPrice, siteListed, 
 								  shelfLocation, removalAction, dateRemoved)
-							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
 					itemInsert)
 		conn.commit()
 		return cursor.lastrowid

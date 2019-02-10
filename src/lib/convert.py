@@ -11,6 +11,7 @@ def itemAssembler(dictionary):
 		dictionary['condition'],
 		dictionary['datePurchased'],
 		dictionary['locationPurchased'],
+		dictionary['consignment'],
 		dictionary['amountPaid'],
 		dictionary['sellPrice'],
 		dictionary['siteListed'],
