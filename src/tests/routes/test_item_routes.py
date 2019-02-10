@@ -15,6 +15,7 @@ def test_item_route_when_a_get_request_is_made(mock_getListOfItems):
         2,
         "2016-12-6",
         "Online",
+		0,
         2000,
         1200,
 		1,
@@ -54,6 +55,7 @@ def test_item_route_when_a_post_request_is_made(mock_createItem, mock_itemAssemb
 		json={
 			'amountPaid': 2000,
             'condition': 2,
+			'consignment': 0,
 	        'datePurchased': '2016-12-6',
             'dateRemoved': None,
             'description': 'A very good book for practicing algorithms',

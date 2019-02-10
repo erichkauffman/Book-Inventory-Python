@@ -17,6 +17,7 @@ def test_make_json_response_from_object():
 	 	       	2,
 	 	       	"2016-12-6",
 	        	"Online",
+				0,
 	        	2000,
 	       		1200,
 	        	1,
@@ -44,6 +45,7 @@ def test_make_json_response_from_object():
 		assert jsonResult['item']['condition'] == 2
 		assert jsonResult['item']['datePurchased'] == "2016-12-6"
 		assert jsonResult['item']['locationPurchased'] == "Online"
+		assert jsonResult['item']['consignment'] == 0
 		assert jsonResult['item']['amountPaid'] == 2000
 		assert jsonResult['item']['sellPrice'] == 1200
 		assert jsonResult['item']['siteListed'] == 1

@@ -8,6 +8,7 @@ class Item:
 				 condition: int,
 				 datePurchased: str,
 				 locationPurchased: str,
+				 consignment: bool,
 				 amountPaid: int,
 				 sellPrice: int,
 				 siteListed: int,
@@ -22,6 +23,7 @@ class Item:
 		self.condition = condition
 		self.datePurchased = datePurchased
 		self.locationPurchased = locationPurchased
+		self.consignment = consignment
 		self.amountPaid = amountPaid
 		self.sellPrice = sellPrice
 		self.siteListed = siteListed
