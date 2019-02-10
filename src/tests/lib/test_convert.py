@@ -5,6 +5,7 @@ def test_item_assembler():
 	itemDict = {
 		'amountPaid': 2000,
 		'condition': 2,
+		'consignment': 0,
 		'datePurchased': '2016-12-6',
 		'dateRemoved': None,
 		'description': 'A very good book for practicing algorithms',
@@ -27,6 +28,7 @@ def test_item_assembler():
 	assert itemObject.condition == 2
 	assert itemObject.datePurchased == "2016-12-6"
 	assert itemObject.locationPurchased == "Online"
+	assert itemObject.consignment == 0
 	assert itemObject.amountPaid == 2000
 	assert itemObject.sellPrice == 1200
 	assert itemObject.shelfLocation == 'FBA'
@@ -40,6 +42,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 		'item': {
 			'amountPaid': 2000,
 			'condition': 2,
+			'consignment': 0,
 			'datePurchased': '2016-12-6',
 			'dateRemoved': None,
 			'description': 'A very good book for practicing algorithms',
@@ -71,6 +74,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 	assert bookObject.item.condition == 2
 	assert bookObject.item.datePurchased == "2016-12-6"
 	assert bookObject.item.locationPurchased == "Online"
+	assert bookObject.item.consignment == 0
 	assert bookObject.item.amountPaid == 2000
 	assert bookObject.item.sellPrice == 1200
 	assert bookObject.item.shelfLocation == 'FBA'
@@ -88,6 +92,7 @@ def test_book_assembler_when_item_is_not_a_subdictionary():
 		'itemId': 5,
 		'upc': '9870984782857',
 		'locationPurchased': 'Online',
+		'consignment': 0,
 		'removalAction': None,
 		'sellPrice': 1200,
 		'shelfLocation': 'FBA',
@@ -113,6 +118,7 @@ def test_book_assembler_when_item_is_not_a_subdictionary():
 	assert bookObject.item.condition == 2
 	assert bookObject.item.datePurchased == "2016-12-6"
 	assert bookObject.item.locationPurchased == "Online"
+	assert bookObject.item.consignment == 0
 	assert bookObject.item.amountPaid == 2000
 	assert bookObject.item.sellPrice == 1200
 	assert bookObject.item.shelfLocation == 'FBA'

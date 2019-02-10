@@ -19,6 +19,7 @@ def test_getting_a_list_of_books():
         	2,
         	"2016-12-6",
         	"Online",
+			0,
         	2000,
        		1200,
         	1,
@@ -49,6 +50,7 @@ def test_getting_a_list_of_books():
 	assert returnedBook.item.condition == 2
 	assert returnedBook.item.datePurchased == "2016-12-6"
 	assert returnedBook.item.locationPurchased == "Online"
+	assert returnedBook.item.consignment == 0
 	assert returnedBook.item.amountPaid == 2000
 	assert returnedBook.item.sellPrice == 1200
 	assert returnedBook.item.shelfLocation == "FBA"

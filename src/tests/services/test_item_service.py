@@ -15,6 +15,7 @@ def test_getting_a_list_of_items():
         2,
         "2016-12-6",
         "Online",
+		0,
         2000,
        	1200,
         1,
@@ -35,6 +36,7 @@ def test_getting_a_list_of_items():
 	assert returnedItem.condition == 2
 	assert returnedItem.datePurchased == "2016-12-6"
 	assert returnedItem.locationPurchased == "Online"
+	assert returnedItem.consignment == 0
 	assert returnedItem.amountPaid == 2000
 	assert returnedItem.sellPrice == 1200
 	assert returnedItem.shelfLocation == "FBA"
