@@ -51,12 +51,12 @@ def itemById(itemId):
 		except DatabaseIndexError as e:
 			return makeJsonResponse({"success": False, "message": str(e)}), 404
 
-@itemRoutes.route('/<int:itemId>/<string:status>', methods=['PUT'])
+@itemRoutes.route('/<int:itemId>/removeAction/<int:status>/', methods=['PUT'])
 def updateRemoveAction(itemId, status):
 	if request.method == 'PUT':
-		if status.lower() == 'true':
+		if status == 1:
 			boolStatus = True
-		elif status.lower() == 'false':
+		elif status == 0:
 			boolStatus = False
 		else:
 			return makeJsonResponse({"success": False, "message": f"Cannot understand {status}"}), 400

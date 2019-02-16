@@ -61,7 +61,7 @@ class ItemRepository:
 	def updateRemoveAction(self, itemId: int, status: bool):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
-		cursor.execute("UPDATE item SET removalAction = ? WHERE itemId = ?", (status, itemId))
+		cursor.execute("UPDATE item SET removalAction = ?, dateRemoved = date('now') WHERE itemId = ?", (status, itemId))
 		count = cursor.rowcount
 		conn.commit()
 		if not count:
