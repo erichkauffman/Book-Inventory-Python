@@ -1,3 +1,4 @@
 CREATE TABLE IF NOT EXISTS siteListed (
-	FOREIGN KEY (itemId) REFERENCES item(itemId),
-	site INT NOT NULL);
+	itemId INT NOT NULL,
+	site INT NOT NULL,
+	FOREIGN KEY (itemId) REFERENCES item(itemId));
