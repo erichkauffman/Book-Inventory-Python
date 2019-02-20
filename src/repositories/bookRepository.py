@@ -4,9 +4,6 @@ from data.Book import Book
 from lib.database import book_factory
 from lib.exceptions import DatabaseIndexError
 
-# Example for proper query creation:
-# db.execute('SELECT * FROM book WHERE Id = ?', 3)
-
 class BookRepository:
 	def __init__(self, dbConnection: str):
 		self.dbConnection = dbConnection
