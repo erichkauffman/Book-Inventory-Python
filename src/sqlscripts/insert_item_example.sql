@@ -9,7 +9,6 @@ INSERT INTO item (
 	consignment,
 	amountPaid,
 	sellPrice,
-	siteListed,
 	shelfLocation,
 	removalAction,
 	dateRemoved)
@@ -24,7 +23,6 @@ VALUES (
 0,
 2000,
 1200,
-1,
 "FBA",
 null,
 null);
