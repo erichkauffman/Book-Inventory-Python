@@ -20,7 +20,7 @@ def test_make_json_response_from_object():
 				0,
 	        	2000,
 	       		1200,
-	        	1,
+	        	[1],
 				"FBA",
 	        	None,
 	        	None
@@ -48,7 +48,7 @@ def test_make_json_response_from_object():
 		assert jsonResult['item']['consignment'] == 0
 		assert jsonResult['item']['amountPaid'] == 2000
 		assert jsonResult['item']['sellPrice'] == 1200
-		assert jsonResult['item']['siteListed'] == 1
+		assert jsonResult['item']['siteListed'] == [1]
 		assert jsonResult['item']['shelfLocation'] == "FBA"
 		assert jsonResult['item']['removalAction'] is None
 		assert jsonResult['item']['dateRemoved'] is None

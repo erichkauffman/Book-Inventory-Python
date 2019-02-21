@@ -3,9 +3,11 @@ from unittest import mock
 from data.Item import Item
 from services.itemService import ItemService
 from repositories.itemRepository import ItemRepository
+from repositories.siteRepository import SiteRepository
 
 def test_getting_a_list_of_items():
 	mockRepo = mock.create_autospec(ItemRepository)
+	mockSiteRepo = mock.create_autospec(SiteRepository)
 	mockRepo.getListOfItems.return_value = [Item(
 		5,
         "Cracking the Coding Interview",
@@ -18,12 +20,13 @@ def test_getting_a_list_of_items():
 		0,
         2000,
        	1200,
-        1,
+        None,
 		"FBA",
         None,
         None
 	)]
-	service = ItemService(mockRepo)
+	mockSiteRepo.getSitesById.return_value = [1]
+	service = ItemService(mockRepo, mockSiteRepo)
 	returnedListOfItems = service.getListOfItems()
 	assert len(returnedListOfItems) == 1
 
@@ -40,6 +43,6 @@ def test_getting_a_list_of_items():
 	assert returnedItem.amountPaid == 2000
 	assert returnedItem.sellPrice == 1200
 	assert returnedItem.shelfLocation == "FBA"
-	assert returnedItem.siteListed == 1
+	assert returnedItem.siteListed == [1]
 	assert returnedItem.removalAction is None
 	assert returnedItem.dateRemoved is None

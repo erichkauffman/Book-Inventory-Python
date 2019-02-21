@@ -5,10 +5,12 @@ from data.Item import Item
 from services.bookService import BookService
 from services.itemService import ItemService
 from repositories.bookRepository import BookRepository
+from repositories.siteRepository import SiteRepository
 
 def test_getting_a_list_of_books():
 	mockItemService = mock.create_autospec(ItemService)
 	mockRepo = mock.create_autospec(BookRepository)
+	mockSiteRepo = mock.create_autospec(SiteRepository)
 	mockRepo.getListOfBooks.return_value = [Book(
 		Item(
         	5,
@@ -22,7 +24,7 @@ def test_getting_a_list_of_books():
 			0,
         	2000,
        		1200,
-        	1,
+        	[1],
 			"FBA",
         	None,
         	None
@@ -32,7 +34,8 @@ def test_getting_a_list_of_books():
         15,
         0,
     )]
-	service = BookService(mockRepo, mockItemService)
+	mockSiteRepo.getSitesById.return_value = [1]
+	service = BookService(mockRepo, mockSiteRepo, mockItemService)
 
 	returnedListOfBooks = service.getListOfBooks()
 	assert len(returnedListOfBooks) == 1
@@ -54,6 +57,6 @@ def test_getting_a_list_of_books():
 	assert returnedBook.item.amountPaid == 2000
 	assert returnedBook.item.sellPrice == 1200
 	assert returnedBook.item.shelfLocation == "FBA"
-	assert returnedBook.item.siteListed == 1
+	assert returnedBook.item.siteListed == [1]
 	assert returnedBook.item.removalAction is None
 	assert returnedBook.item.dateRemoved is None
