@@ -2,7 +2,7 @@ from data.Item import Item
 from data.Book import Book
 
 def itemAssembler(dictionary):
-	return Item(
+	item = Item(
 		dictionary['itemId'],
 		dictionary['title'],
 		dictionary['upc'],
@@ -14,11 +14,14 @@ def itemAssembler(dictionary):
 		dictionary['consignment'],
 		dictionary['amountPaid'],
 		dictionary['sellPrice'],
-		dictionary['siteListed'],
+		None,
 		dictionary['shelfLocation'],
 		dictionary['removalAction'],
 		dictionary['dateRemoved']
 	)
+	if 'siteListed' in dictionary:
+		item.siteListed = dictionary['siteListed']
+	return item
 
 def bookAssembler(dictionary):
 	if 'item' in dictionary:

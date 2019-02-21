@@ -5,13 +5,14 @@ from services.bookService import BookService
 from services.itemService import ItemService
 from repositories.bookRepository import BookRepository
 from repositories.itemRepository import ItemRepository
+from repositories.siteRepository import SiteRepository
 from lib.convert import bookAssembler
 from lib.response import makeJsonResponse
 from lib.exceptions import DatabaseIndexError
 from config import database
 
-itemService = ItemService(ItemRepository(database))
-bookService = BookService(BookRepository(database), itemService)
+itemService = ItemService(ItemRepository(database), SiteRepository(database))
+bookService = BookService(BookRepository(database), SiteRepository(database), itemService)
 
 bookRoutes = Blueprint("books", __name__)
 

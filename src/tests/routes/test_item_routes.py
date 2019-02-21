@@ -18,7 +18,7 @@ def test_item_route_when_a_get_request_is_made(mock_getListOfItems):
 		0,
         2000,
         1200,
-		1,
+		[1],
 		"FBA",
 		None,
 		None
@@ -42,7 +42,7 @@ def test_item_route_when_a_get_request_is_made(mock_getListOfItems):
 	assert jsonResult['amountPaid'] == 2000
 	assert jsonResult['sellPrice'] == 1200
 	assert jsonResult['shelfLocation'] == "FBA"
-	assert jsonResult['siteListed'] == 1
+	assert jsonResult['siteListed'] == [1]
 	assert jsonResult['removalAction'] is None
 	assert jsonResult['dateRemoved'] is None
 
@@ -65,7 +65,7 @@ def test_item_route_when_a_post_request_is_made(mock_createItem, mock_itemAssemb
             'removalAction': None,
             'sellPrice': 1200,
 			'shelfLocation': 'FBA',
-            'siteListed': 1,
+            'siteListed': [1],
             'title': 'Cracking the Coding Interview',
             'year': 2015
 		})

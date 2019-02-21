@@ -3,12 +3,13 @@ from sqlite3 import IntegrityError
 
 from services.itemService import ItemService
 from repositories.itemRepository import ItemRepository
+from repositories.siteRepository import SiteRepository
 from lib.convert import itemAssembler
 from lib.response import makeJsonResponse
 from lib.exceptions import DatabaseIndexError
 from config import database
 
-ItemService = ItemService(ItemRepository(database))
+ItemService = ItemService(ItemRepository(database), SiteRepository(database))
 
 itemRoutes = Blueprint("items", __name__)
 
