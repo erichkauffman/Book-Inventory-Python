@@ -1,9 +1,11 @@
 from repositories.itemRepository import ItemRepository
+from repositories.siteRepository import SiteRepository
 from data.Item import Item
 
 class ItemService:
-	def __init__(self, itemRepository: ItemRepository):
+	def __init__(self, itemRepository: ItemRepository, siteRepository: SiteRepository):
 		self.itemRepo = itemRepository
+		self.siteRepo = siteRepository
 
 	def getListOfItems(self):
 		return self.itemRepo.getListOfItems()
