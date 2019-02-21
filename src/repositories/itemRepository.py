@@ -25,9 +25,10 @@ class ItemRepository:
 			item.condition,
 			item.datePurchased,
 			item.locationPurchased,
+			item.consignment,
 			item.amountPaid,
 			item.sellPrice,
-			item.siteListed,
+			item.shelfLocation,
 			item.removalAction,
 			item.dateRemoved
 		)
@@ -35,10 +36,10 @@ class ItemRepository:
 		cursor = conn.cursor()
 		cursor.execute('''INSERT INTO
 							item (title, upc, year, description, condition, datePurchased,
-								  locationPurchased, consignment, amountPaid, sellPrice, siteListed, 
+								  locationPurchased, consignment, amountPaid, sellPrice, 
 								  shelfLocation, removalAction, dateRemoved)
-							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-					itemInsert)
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+						itemInsert)
 		conn.commit()
 		return cursor.lastrowid
 
