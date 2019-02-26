@@ -25,7 +25,3 @@ class BookService:
 		for index, book in enumerate(books):
 			books[index].item.siteListed = self.siteRepo.getSitesById(book.item.itemId)
 		return books
-
-	def deleteBook(self, itemId: int):
-		self.bookRepo.deleteBook(itemId)
-		self.itemService.deleteItem(itemId)

@@ -43,15 +43,6 @@ def itemsSellable():
 		itemList = ItemService.getSellableItems()
 		return makeJsonResponse(itemList)
 
-@itemRoutes.route('/<int:itemId>/', methods=['DELETE'])
-def itemById(itemId):
-	if request.method == 'DELETE':
-		try:
-			ItemService.deleteItem(itemId)
-			return makeJsonResponse({"success": True})
-		except DatabaseIndexError as e:
-			return makeJsonResponse({"success": False, "message": str(e)}), 404
-
 @itemRoutes.route('/<int:itemId>/removeAction/<int:status>/', methods=['PUT'])
 def updateRemoveAction(itemId, status):
 	if request.method == 'PUT':

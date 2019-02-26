@@ -45,12 +45,3 @@ def booksSellable():
 	if request.method == 'GET':
 		bookList = bookService.getSellableBooks()
 		return makeJsonResponse(bookList)
-
-@bookRoutes.route('/<int:itemId>/', methods=['DELETE'])
-def bookById(itemId):
-	if request.method == 'DELETE':
-		try:
-			bookService.deleteBook(itemId)
-			return makeJsonResponse({"success": True})
-		except DatabaseIndexError as e:
-			return makeJsonResponse({"success": False, "message": str(e)}), 404

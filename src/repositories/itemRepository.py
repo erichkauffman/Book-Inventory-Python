@@ -50,15 +50,6 @@ class ItemRepository:
 		cursor.execute('SELECT * FROM item WHERE dateRemoved IS NULL ORDER BY title')
 		return cursor.fetchall()
 
-	def deleteItem(self, itemId: int):
-		conn = sqlite3.connect(self.dbConnection)
-		cursor = conn.cursor()
-		cursor.execute('DELETE FROM item WHERE itemId = ?', (itemId,))
-		count = cursor.rowcount
-		conn.commit()
-		if not count:
-			raise DatabaseIndexError(f'Item with itemId = {itemId} does not exist in database')
-
 	def updateRemoveAction(self, itemId: int, status: bool):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
