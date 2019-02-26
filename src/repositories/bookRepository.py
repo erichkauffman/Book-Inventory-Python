@@ -43,12 +43,3 @@ class BookRepository:
 						  WHERE item.dateRemoved IS NULL
 						  ORDER BY book.author, item.title''')
 		return cursor.fetchall()
-
-	def deleteBook(self, itemId: int):
-		conn = sqlite3.connect(self.dbConnection)
-		cursor = conn.cursor()
-		cursor.execute('DELETE FROM book WHERE itemId = ?', (itemId,))
-		count = cursor.rowcount
-		conn.commit()
-		if not count:
-			raise DatabaseIndexError(f"Book with itemId = {itemId} does not exist in database")
