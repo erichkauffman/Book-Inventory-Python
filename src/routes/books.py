@@ -45,3 +45,12 @@ def booksSellable():
 	if request.method == 'GET':
 		bookList = bookService.getSellableBooks()
 		return makeJsonResponse(bookList)
+
+@bookRoutes.route('/<int:itemId>/', methods=['GET'])
+def bookById(itemId):
+	if request.method == 'GET':
+		try:
+			book = bookService.getBookById(itemId)
+			return makeJsonResponse(book)
+		except DatabaseIndexError as e:
+			return makeJsonResponse({"success": False, "message": str(e)}), 404

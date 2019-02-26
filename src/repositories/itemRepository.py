@@ -49,6 +49,13 @@ class ItemRepository:
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM item WHERE dateRemoved IS NULL ORDER BY title')
 		return cursor.fetchall()
+	
+	def getItemById(self, itemId: int):
+		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = item_factory
+		cursor = conn.cursor()
+		cursor.execute('SELECT * FROM item WHERE itemId = ?', (itemId,))
+		return cursor.fetchone()
 
 	def updateRemoveAction(self, itemId: int, status: bool):
 		conn = sqlite3.connect(self.dbConnection)
