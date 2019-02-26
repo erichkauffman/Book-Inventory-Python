@@ -18,6 +18,10 @@ class ItemService:
 		for site in item.siteListed:
 			self.siteRepo.setSite(itemId, site)
 		return itemId
+	
+	def editItem(self, item: Item):
+		self.itemRepo.editItem(item)		
+		self.siteRepo.editSite(item.itemId, item.siteListed)
 
 	def getSellableItems(self):
 		items = self.itemRepo.getSellableItems()

@@ -33,6 +33,21 @@ class BookRepository:
 						  VALUES(?,?,?,?,?)''', bookInsert)
 		conn.commit()
 
+	def editBook(self, book: Book):
+		bookInsert = (
+			book.author,
+			book.edition,
+			book.printing,
+			book.cover,
+			book.item.itemId
+		)
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('''UPDATE book SET author = ?, edition = ?,
+						  printing = ?, cover = ?
+						  WHERE itemId = ?''', bookInsert)
+		conn.commit()
+
 	def getSellableBooks(self):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = book_factory

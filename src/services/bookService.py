@@ -19,6 +19,10 @@ class BookService:
 		itemId = self.itemService.createItem(book.item)
 		book.item.itemId = itemId
 		self.bookRepo.createNewBook(book)
+	
+	def editBook(self, book: Book):
+		self.itemService.editItem(book.item)
+		self.bookRepo.editBook(book)
 
 	def getSellableBooks(self):
 		books = self.bookRepo.getSellableBooks()

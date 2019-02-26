@@ -13,7 +13,7 @@ itemService = ItemService(ItemRepository(database), SiteRepository(database))
 
 itemRoutes = Blueprint("items", __name__)
 
-@itemRoutes.route('/', methods=['GET', 'POST'])
+@itemRoutes.route('/', methods=['GET', 'POST', 'PUT'])
 def items():
 	if request.method == 'GET':
 		itemList = itemService.getListOfItems()
@@ -36,6 +36,11 @@ def items():
 			   return makeJsonResponse({"success": False, "message": f"'{failedKey[-1]}' must not be null"}), 400
 
 			return makeJsonResponse({"success": False, "message": "Something went wrong, please make sure your data is correct"}), 400
+	elif request.method == 'PUT':
+		jsonreq = request.get_json(force=True)
+		putItem = itemAssembler(jsonreq)
+		itemService.editItem(putItem)
+		return makeJsonResponse({"success": True})
 
 @itemRoutes.route('/sellable/', methods=['GET'])
 def itemsSellable():
