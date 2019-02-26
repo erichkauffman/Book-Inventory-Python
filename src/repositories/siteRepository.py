@@ -20,3 +20,11 @@ class SiteRepository:
 		for siteTuple in siteTuples:
 			sites.append(siteTuple[0])
 		return sites
+
+	def editSite(self, itemId: int, sites: int):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('DELETE FROM siteListed WHERE itemId = ?', (itemId,))
+		conn.commit()
+		for site in sites:
+			self.setSite(itemId, site)

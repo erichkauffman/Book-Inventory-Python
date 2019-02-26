@@ -43,13 +43,36 @@ class ItemRepository:
 		conn.commit()
 		return cursor.lastrowid
 
+	def editItem(self, item: Item):
+		itemInsert = (
+			item.title,
+			item.upc,
+			item.year,
+			item.description,
+			item.condition,
+			item.datePurchased,
+			item.locationPurchased,
+			item.consignment,
+			item.amountPaid,
+			item.sellPrice,
+			item.shelfLocation,
+			item.itemId
+		)
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('''UPDATE item SET title = ?, upc = ?, year = ?, description = ?,
+						  condition = ?, datePurchased = ?, locationPurchased = ?,
+						  consignment = ?, amountPaid = ?, sellPrice = ?, shelfLocation = ?
+						  WHERE itemId = ?''', itemInsert)
+		conn.commit()
+
 	def getSellableItems(self):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = item_factory
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM item WHERE dateRemoved IS NULL ORDER BY title')
 		return cursor.fetchall()
-	
+
 	def getItemById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = item_factory

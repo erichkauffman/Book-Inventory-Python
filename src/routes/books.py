@@ -16,7 +16,7 @@ bookService = BookService(BookRepository(database), SiteRepository(database), it
 
 bookRoutes = Blueprint("books", __name__)
 
-@bookRoutes.route('/', methods=['GET', 'POST'])
+@bookRoutes.route('/', methods=['GET', 'POST', 'PUT'])
 def books():
 	if request.method == 'GET':
 		bookList = bookService.getListOfBooks()
@@ -39,6 +39,11 @@ def books():
 			   return makeJsonResponse({"success": False, "message": f"'{failedKey[-1]}' must not be null"}), 400
 
 			return makeJsonResponse({"success": False, "message": "Something went wrong, please make sure your data is correct"}), 400
+	elif request.method == 'PUT':
+		jsonreq = request.get_json(force=True)
+		putBook = bookAssembler(jsonreq)
+		bookService.editBook(putBook)
+		return makeJsonResponse({"success": True})
 
 @bookRoutes.route('/sellable/', methods=['GET'])
 def booksSellable():
