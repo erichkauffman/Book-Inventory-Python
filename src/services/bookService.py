@@ -25,3 +25,8 @@ class BookService:
 		for index, book in enumerate(books):
 			books[index].item.siteListed = self.siteRepo.getSitesById(book.item.itemId)
 		return books
+
+	def getBookById(self, itemId: int):
+		book = self.bookRepo.getBookById(itemId)
+		book.item.siteListed = self.siteRepo.getSitesById(itemId)
+		return book

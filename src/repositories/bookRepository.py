@@ -43,3 +43,13 @@ class BookRepository:
 						  WHERE item.dateRemoved IS NULL
 						  ORDER BY book.author, item.title''')
 		return cursor.fetchall()
+
+	def getBookById(self, itemId: int):
+		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = book_factory
+		cursor = conn.cursor()
+		cursor.execute('''SELECT *
+						  FROM book
+						  INNER JOIN item ON book.itemId = item.itemId
+						  WHERE book.itemId = ?''', (itemId,))
+		return cursor.fetchone()

@@ -9,20 +9,20 @@ from lib.response import makeJsonResponse
 from lib.exceptions import DatabaseIndexError
 from config import database
 
-ItemService = ItemService(ItemRepository(database), SiteRepository(database))
+itemService = ItemService(ItemRepository(database), SiteRepository(database))
 
 itemRoutes = Blueprint("items", __name__)
 
 @itemRoutes.route('/', methods=['GET', 'POST'])
 def items():
 	if request.method == 'GET':
-		itemList = ItemService.getListOfItems()
+		itemList = itemService.getListOfItems()
 		return makeJsonResponse(itemList)
 	elif request.method == 'POST':
 		try:
 			jsonreq = request.get_json(force=True)
 			postedItem = itemAssembler(jsonreq)
-			ItemService.createItem(postedItem)
+			itemService.createItem(postedItem)
 			return makeJsonResponse({"success": True})
 		except KeyError as e:
 			return makeJsonResponse({"success": False, "message": f"Could not find {str(e)} key in received data"}), 400
@@ -40,8 +40,17 @@ def items():
 @itemRoutes.route('/sellable/', methods=['GET'])
 def itemsSellable():
 	if request.method == 'GET':
-		itemList = ItemService.getSellableItems()
+		itemList = itemService.getSellableItems()
 		return makeJsonResponse(itemList)
+
+@itemRoutes.route('/<int:itemId>/', methods=['GET'])
+def itemById(itemId):
+	if request.method == 'GET':
+		try:
+			item = itemService.getItemById(itemId)
+			return makeJsonResponse(item)
+		except DatabaseIndexError as e:
+			return makeJsonResponse({"success": False, "message": str(e)}), 404
 
 @itemRoutes.route('/<int:itemId>/removeAction/<int:status>/', methods=['PUT'])
 def updateRemoveAction(itemId, status):
@@ -54,7 +63,7 @@ def updateRemoveAction(itemId, status):
 			return makeJsonResponse({"success": False, "message": f"Cannot understand {status}"}), 400
 
 		try:
-			ItemService.updateRemoveAction(itemId, boolStatus)
+			itemService.updateRemoveAction(itemId, boolStatus)
 			return makeJsonResponse({"success": True})
 		except DatabaseIndexError as e:
 			return makeJsonResponse({"success": False, "message": str(e)}), 404

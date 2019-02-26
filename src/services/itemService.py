@@ -24,6 +24,11 @@ class ItemService:
 		for index, item in enumerate(items):
 			items[index].siteListed = self.siteRepo.getSitesById(item.itemId)
 		return items
+	
+	def getItemById(self, itemId: int):
+		item = self.itemRepo.getItemById(itemId)
+		item.siteListed = self.siteRepo.getSitesById(itemId)
+		return item
 
 	def updateRemoveAction(self, itemId: int, status: bool):
 		self.itemRepo.updateRemoveAction(itemId, status)
