@@ -18,7 +18,7 @@ class ItemService:
 		for site in item.siteListed:
 			self.siteRepo.setSite(itemId, site)
 		return itemId
-	
+
 	def editItem(self, item: Item):
 		self.itemRepo.editItem(item)		
 		self.siteRepo.editSite(item.itemId, item.siteListed)
@@ -28,7 +28,7 @@ class ItemService:
 		for index, item in enumerate(items):
 			items[index].siteListed = self.siteRepo.getSitesById(item.itemId)
 		return items
-	
+
 	def getItemById(self, itemId: int):
 		item = self.itemRepo.getItemById(itemId)
 		item.siteListed = self.siteRepo.getSitesById(itemId)
