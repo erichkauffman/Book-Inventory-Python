@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 
 from services.locationService import LocationService
 from repositories.locationRepository import LocationRepository
@@ -12,8 +12,8 @@ locationRoutes = Blueprint("locations", __name__)
 @locationRoutes.route('/', methods=['GET'])
 def locations():
 	if request.methods == 'GET':
-		locations = locationService.getListOfLocations()
-		return makeJsonResponse(locations)
+		locationList = locationService.getListOfLocations()
+		return makeJsonResponse(locationList)
 
 @locationRoutes.route('/<str:location>/', methods=['POST'])
 def setLocation(location):
