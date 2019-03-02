@@ -9,7 +9,11 @@ class LocationRepository:
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM location')
 		conn.commit()
-		return list(cursor.fetchall())
+		locationTuples = cursor.fetchall()
+		locationList = []
+		for locationTuple in locationTuples:
+			locationList.append(locationTuple[0])
+		return locationList
 
 	def setLocation(self, location: str):
 		conn = sqlite3.connect(self.dbConnection)
