@@ -3,6 +3,7 @@ import flask_cors
 
 from routes.books import bookRoutes
 from routes.items import itemRoutes
+from routes.locations import locationRoutes
 from lib.response import makeJsonResponse
 
 app = Flask(__name__)
@@ -14,6 +15,7 @@ def index():
 
 app.register_blueprint(bookRoutes, url_prefix='/books')
 app.register_blueprint(itemRoutes, url_prefix='/items')
+app.register_blueprint(locationRoutes, url_prefix='/locations')
 
 @app.errorhandler(404)
 def notFound(e):
