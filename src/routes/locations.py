@@ -11,12 +11,12 @@ locationRoutes = Blueprint("locations", __name__)
 
 @locationRoutes.route('/', methods=['GET'])
 def locations():
-	if request.methods == 'GET':
+	if request.method == 'GET':
 		locationList = locationService.getListOfLocations()
 		return makeJsonResponse(locationList)
 
-@locationRoutes.route('/<str:location>/', methods=['POST'])
+@locationRoutes.route('/<string:location>/', methods=['POST'])
 def setLocation(location):
-	if request.methods == 'POST':
+	if request.method == 'POST':
 		locationService.createLocation(location)
 		return makeJsonResponse({"success": True})
