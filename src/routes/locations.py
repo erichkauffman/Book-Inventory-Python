@@ -9,17 +9,18 @@ locationService = LocationService(LocationRepository(database))
 
 locationRoutes = Blueprint("locations", __name__)
 
-@locationRoutes.route('/', methods=['GET'])
+@locationRoutes.route('/', methods=['GET', 'POST', 'DELETE'])
 def locations():
 	if request.method == 'GET':
 		locationList = locationService.getListOfLocations()
 		return makeJsonResponse(locationList)
-
-@locationRoutes.route('/<string:location>/', methods=['POST', 'DELETE'])
-def setLocation(location):
-	if request.method == 'POST':
+	elif request.method == 'POST':
+		jsonreq = request.get_json(force=True)
+		location = jsonreq['data']
 		locationService.createLocation(location)
 		return makeJsonResponse({"success": True})
-	if request.method == 'DELETE':
+	elif request.method == 'DELETE':
+		jsonreq = request.get_json(force=True)
+		location = jsonreq['data']
 		locationService.removeLocation(location)
 		return makeJsonResponse({"success": True})

@@ -9,17 +9,18 @@ phraseService = PhraseService(PhraseRepository(database))
 
 phraseRoutes = Blueprint("phrases", __name__)
 
-@phraseRoutes.route('/', methods=['GET'])
+@phraseRoutes.route('/', methods=['GET', 'POST', 'DELETE'])
 def phrases():
 	if request.method == 'GET':
 		phraseList = phraseService.getListOfPhrases()
 		return makeJsonResponse(phraseList)
-
-@phraseRoutes.route('/<string:phrase>/', methods=['POST', 'DELETE'])
-def setPhrase(phrase):
-	if request.method == 'POST':
+	elif request.method == 'POST':
+		jsonreq = request.get_json(force=True)
+		phrase = jsonreq['data']
 		phraseService.createPhrase(phrase)
 		return makeJsonResponse({"success": True})
-	if request.method == 'DELETE':
+	elif request.method == 'DELETE':
+		jsonreq = request.get_json(force=True)
+		phrase = jsonreq['data']
 		phraseService.removePhrase(phrase)
 		return makeJsonResponse({"success": True})
