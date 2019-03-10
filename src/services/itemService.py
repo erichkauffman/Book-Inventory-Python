@@ -7,12 +7,6 @@ class ItemService:
 		self.itemRepo = itemRepository
 		self.siteRepo = siteRepository
 
-	def getListOfItems(self):
-		items = self.itemRepo.getListOfItems()
-		for index, item in enumerate(items):
-			items[index].siteListed = self.siteRepo.getSitesById(item.itemId)
-		return items
-
 	def createItem(self, item: Item):
 		itemId = self.itemRepo.createNewItem(item)
 		for site in item.siteListed:
@@ -20,14 +14,11 @@ class ItemService:
 		return itemId
 
 	def editItem(self, item: Item):
-		self.itemRepo.editItem(item)		
+		self.itemRepo.editItem(item)
 		self.siteRepo.editSite(item.itemId, item.siteListed)
 
 	def getSellableItems(self):
-		items = self.itemRepo.getSellableItems()
-		for index, item in enumerate(items):
-			items[index].siteListed = self.siteRepo.getSitesById(item.itemId)
-		return items
+		return self.itemRepo.getSellableItems()
 
 	def getItemById(self, itemId: int):
 		item = self.itemRepo.getItemById(itemId)
