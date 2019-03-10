@@ -16,12 +16,9 @@ bookService = BookService(BookRepository(database), SiteRepository(database), it
 
 bookRoutes = Blueprint("books", __name__)
 
-@bookRoutes.route('/', methods=['GET', 'POST', 'PUT'])
+@bookRoutes.route('/', methods=['POST', 'PUT'])
 def books():
-	if request.method == 'GET':
-		bookList = bookService.getListOfBooks()
-		return makeJsonResponse(bookList)
-	elif request.method == 'POST':
+	if request.method == 'POST':
 		try:
 			jsonreq = request.get_json(force=True)
 			postedBook = bookAssembler(jsonreq)
