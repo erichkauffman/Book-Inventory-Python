@@ -20,3 +20,9 @@ class PhraseRepository:
 		cursor = conn.cursor()
 		cursor.execute('INSERT INTO phrase(phrase) VALUES (?)', (phrase,))
 		conn.commit()
+
+	def deletePhrase(self, phrase: str):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('DELETE FROM phrase WHERE phrase = ?', (phrase, ))
+		conn.commit()
