@@ -1,7 +1,7 @@
 import sqlite3
 
 from data.Book import Book
-from lib.database import book_factory
+from lib.database import book_factory, mini_factory
 from lib.exceptions import DatabaseIndexError
 
 class BookRepository:
@@ -40,13 +40,13 @@ class BookRepository:
 
 	def getSellableBooks(self):
 		conn = sqlite3.connect(self.dbConnection)
-		conn.row_factory = book_factory
+		conn.row_factory = mini_factory
 		cursor = conn.cursor()
-		cursor.execute('''SELECT *
-						  FROM book
-						  INNER JOIN item ON book.itemId = item.itemId
+		cursor.execute('''SELECT item.itemId, title
+						  FROM item
+						  INNER JOIN book ON item.itemId = book.itemId
 						  WHERE item.dateRemoved IS NULL
-						  ORDER BY book.author, item.title''')
+						  ORDER BY item.title''')
 		return cursor.fetchall()
 
 	def getBookById(self, itemId: int):

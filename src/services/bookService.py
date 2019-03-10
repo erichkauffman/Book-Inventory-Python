@@ -19,10 +19,7 @@ class BookService:
 		self.bookRepo.editBook(book)
 
 	def getSellableBooks(self):
-		books = self.bookRepo.getSellableBooks()
-		for index, book in enumerate(books):
-			books[index].item.siteListed = self.siteRepo.getSitesById(book.item.itemId)
-		return books
+		return self.bookRepo.getSellableBooks()
 
 	def getBookById(self, itemId: int):
 		book = self.bookRepo.getBookById(itemId)

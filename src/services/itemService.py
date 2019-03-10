@@ -14,7 +14,7 @@ class ItemService:
 		return itemId
 
 	def editItem(self, item: Item):
-		self.itemRepo.editItem(item)		
+		self.itemRepo.editItem(item)
 		self.siteRepo.editSite(item.itemId, item.siteListed)
 
 	def getSellableItems(self):
