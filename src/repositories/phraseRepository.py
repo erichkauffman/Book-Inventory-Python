@@ -14,3 +14,9 @@ class PhraseRepository:
 		for phraseTuple in phraseTuples:
 			phraseList.append(phraseTuple[0])
 		return phraseList
+
+	def setPhrase(self, phrase: str):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('INSERT INTO phrase(phrase) VALUES (?)', (phrase,))
+		conn.commit()
