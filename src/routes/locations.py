@@ -15,8 +15,11 @@ def locations():
 		locationList = locationService.getListOfLocations()
 		return makeJsonResponse(locationList)
 
-@locationRoutes.route('/<string:location>/', methods=['POST'])
+@locationRoutes.route('/<string:location>/', methods=['POST', 'DELETE'])
 def setLocation(location):
 	if request.method == 'POST':
 		locationService.createLocation(location)
+		return makeJsonResponse({"success": True})
+	if request.method == 'DELETE':
+		locationService.removeLocation(location)
 		return makeJsonResponse({"success": True})
