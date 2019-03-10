@@ -11,3 +11,9 @@ def book_factory(cursor, row):
 	for index, columnName in enumerate(cursor.description):
 		dictionary[columnName[0]] = row[index]
 	return bookAssembler(dictionary)
+
+def mini_factory(cursor, row):
+	dictionary = {}
+	for index, columnName in enumerate(cursor.description):
+		dictionary[columnName[0]] = row[index]
+	return dictionary
