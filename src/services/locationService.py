@@ -9,3 +9,6 @@ class LocationService:
 
 	def createLocation(self, location: str):
 		self.locationRepo.setLocation(location)
+
+	def removeLocation(self, location: str):
+		self.locationRepo.deleteLocation(location)
