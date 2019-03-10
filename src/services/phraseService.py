@@ -9,3 +9,6 @@ class PhraseService:
 
 	def createPhrase(self, phrase: str):
 		self.phraseRepo.setPhrase(phrase)
+
+	def removePhrase(self, phrase: str):
+		self.phraseRepo.deletePhrase(phrase)

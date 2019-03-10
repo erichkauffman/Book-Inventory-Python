@@ -20,3 +20,9 @@ class LocationRepository:
 		cursor = conn.cursor()
 		cursor.execute('INSERT INTO location(location) VALUES (?)', (location,))
 		conn.commit()
+
+	def deleteLocation(self, location: str):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('DELETE FROM location WHERE location = ?', (location, ))
+		conn.commit()

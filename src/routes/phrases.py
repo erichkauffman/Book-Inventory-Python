@@ -15,8 +15,11 @@ def phrases():
 		phraseList = phraseService.getListOfPhrases()
 		return makeJsonResponse(phraseList)
 
-@phraseRoutes.route('/<string:phrase>/', methods=['POST'])
+@phraseRoutes.route('/<string:phrase>/', methods=['POST', 'DELETE'])
 def setPhrase(phrase):
 	if request.method == 'POST':
 		phraseService.createPhrase(phrase)
+		return makeJsonResponse({"success": True})
+	if request.method == 'DELETE':
+		phraseService.removePhrase(phrase)
 		return makeJsonResponse({"success": True})
