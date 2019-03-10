@@ -18,10 +18,7 @@ class ItemService:
 		self.siteRepo.editSite(item.itemId, item.siteListed)
 
 	def getSellableItems(self):
-		items = self.itemRepo.getSellableItems()
-		for index, item in enumerate(items):
-			items[index].siteListed = self.siteRepo.getSitesById(item.itemId)
-		return items
+		return self.itemRepo.getSellableItems()
 
 	def getItemById(self, itemId: int):
 		item = self.itemRepo.getItemById(itemId)

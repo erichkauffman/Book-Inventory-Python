@@ -3,6 +3,7 @@ import sqlite3
 from data.Item import Item
 
 from lib.database import item_factory
+from lib.database import mini_factory
 from lib.exceptions import DatabaseIndexError
 
 class ItemRepository:
@@ -61,9 +62,9 @@ class ItemRepository:
 
 	def getSellableItems(self):
 		conn = sqlite3.connect(self.dbConnection)
-		conn.row_factory = item_factory
+		conn.row_factory = mini_factory
 		cursor = conn.cursor()
-		cursor.execute('SELECT * FROM item WHERE dateRemoved IS NULL ORDER BY title')
+		cursor.execute('SELECT itemId, title FROM item WHERE dateRemoved IS NULL ORDER BY title')
 		return cursor.fetchall()
 
 	def getItemById(self, itemId: int):
