@@ -7,12 +7,6 @@ class ItemService:
 		self.itemRepo = itemRepository
 		self.siteRepo = siteRepository
 
-	def getListOfItems(self):
-		items = self.itemRepo.getListOfItems()
-		for index, item in enumerate(items):
-			items[index].siteListed = self.siteRepo.getSitesById(item.itemId)
-		return items
-
 	def createItem(self, item: Item):
 		itemId = self.itemRepo.createNewItem(item)
 		for site in item.siteListed:
