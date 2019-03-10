@@ -13,12 +13,9 @@ itemService = ItemService(ItemRepository(database), SiteRepository(database))
 
 itemRoutes = Blueprint("items", __name__)
 
-@itemRoutes.route('/', methods=['GET', 'POST', 'PUT'])
+@itemRoutes.route('/', methods=['POST', 'PUT'])
 def items():
-	if request.method == 'GET':
-		itemList = itemService.getListOfItems()
-		return makeJsonResponse(itemList)
-	elif request.method == 'POST':
+	if request.method == 'POST':
 		try:
 			jsonreq = request.get_json(force=True)
 			postedItem = itemAssembler(jsonreq)
