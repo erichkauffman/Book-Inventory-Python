@@ -6,3 +6,6 @@ class PhraseService:
 
 	def getListOfPhrases(self):
 		return self.phraseRepo.getPhrases()
+
+	def createPhrase(self, phrase: str):
+		self.phraseRepo.setPhrase(phrase)
