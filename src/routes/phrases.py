@@ -14,3 +14,9 @@ def phrases():
 	if request.method == 'GET':
 		phraseList = phraseService.getListOfPhrases()
 		return makeJsonResponse(phraseList)
+
+@phraseRoutes.route('/<string:phrase>/', methods=['POST'])
+def setPhrase(phrase):
+	if request.method == 'POST':
+		phraseService.createPhrase(phrase)
+		return makeJsonResponse({"success": True})
