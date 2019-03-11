@@ -42,7 +42,7 @@ class BookRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = mini_factory
 		cursor = conn.cursor()
-		cursor.execute('''SELECT item.itemId, title
+		cursor.execute('''SELECT item.itemId, title, upc, author
 						  FROM item
 						  INNER JOIN book ON item.itemId = book.itemId
 						  WHERE item.dateRemoved IS NULL
