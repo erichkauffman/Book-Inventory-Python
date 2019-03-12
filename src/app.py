@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_socketio import SocketIO
 import flask_cors
 
 from routes.books import bookRoutes
@@ -8,6 +9,7 @@ from routes.phrases import phraseRoutes
 from lib.response import makeJsonResponse
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 flask_cors.CORS(app=app)
 
 @app.route('/')
@@ -32,4 +34,4 @@ def internalError(e):
 	return makeJsonResponse({"success": False, "message": "something went wrong"}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    socketio.run(app=app, host='0.0.0.0')
