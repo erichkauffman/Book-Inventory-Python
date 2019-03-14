@@ -1,12 +1,13 @@
-from flask import Blueprint, request
 from sqlite3 import IntegrityError
+from flask import Blueprint, request
 
 from services.itemService import ItemService
 from repositories.itemRepository import ItemRepository
 from repositories.siteRepository import SiteRepository
 from lib.convert import itemAssembler
-from lib.response import makeJsonResponse
+from lib.response import makeJson, makeJsonResponse
 from lib.exceptions import DatabaseIndexError
+from initialize import socketio
 from config import database
 
 itemService = ItemService(ItemRepository(database), SiteRepository(database))
@@ -19,7 +20,11 @@ def items():
 		try:
 			jsonreq = request.get_json(force=True)
 			postedItem = itemAssembler(jsonreq)
-			itemService.createItem(postedItem)
+			itemId = itemService.createItem(postedItem)
+			mini = {'itemId': itemId,
+					'title': postedItem.title,
+					'upc': postedItem.upc}
+			socketio.emit('new_item', makeJson(mini), broadcast=True)
 			return makeJsonResponse({"success": True})
 		except KeyError as e:
 			return makeJsonResponse({"success": False, "message": f"Could not find {str(e)} key in received data"}), 400
@@ -37,6 +42,10 @@ def items():
 		jsonreq = request.get_json(force=True)
 		putItem = itemAssembler(jsonreq)
 		itemService.editItem(putItem)
+		mini = {'itemId': putItem.itemId,
+				'title': putItem.title,
+				'upc': putItem.upc}
+		socketio.emit('update_item', makeJson(mini), broadcast=True)
 		return makeJsonResponse({"success": True})
 
 @itemRoutes.route('/sellable/', methods=['GET'])
@@ -66,6 +75,7 @@ def updateRemoveAction(itemId, status):
 
 		try:
 			itemService.updateRemoveAction(itemId, boolStatus)
+			socketio.emit('delete_item', itemId)
 			return makeJsonResponse({"success": True})
 		except DatabaseIndexError as e:
 			return makeJsonResponse({"success": False, "message": str(e)}), 404
