@@ -1,5 +1,5 @@
-from flask import Blueprint, request
 from sqlite3 import IntegrityError
+from flask import Blueprint, request
 
 from services.bookService import BookService
 from services.itemService import ItemService
@@ -7,8 +7,9 @@ from repositories.bookRepository import BookRepository
 from repositories.itemRepository import ItemRepository
 from repositories.siteRepository import SiteRepository
 from lib.convert import bookAssembler
-from lib.response import makeJsonResponse
+from lib.response import makeJson, makeJsonResponse
 from lib.exceptions import DatabaseIndexError
+from initialize import socketio
 from config import database
 
 itemService = ItemService(ItemRepository(database), SiteRepository(database))
@@ -22,7 +23,12 @@ def books():
 		try:
 			jsonreq = request.get_json(force=True)
 			postedBook = bookAssembler(jsonreq)
-			bookService.createBook(postedBook)
+			itemId = bookService.createBook(postedBook)
+			mini = {'itemId': itemId,
+					'title': postedBook.item.title,
+					'upc': postedBook.item.upc,
+					'author': postedBook.author}
+			socketio.emit('new_book', makeJson(mini), broadcast=True)
 			return makeJsonResponse({"success": True})
 		except KeyError as e:
 			return makeJsonResponse({"success": False, "message": f"Could not find {str(e)} key in received data"}), 400
@@ -40,6 +46,11 @@ def books():
 		jsonreq = request.get_json(force=True)
 		putBook = bookAssembler(jsonreq)
 		bookService.editBook(putBook)
+		mini = {'itemId': putBook.item.itemId,
+				'title': putBook.item.title,
+				'upc': putBook.item.upc,
+				'author': putBook.author}
+		socketio.emit('update_book', makeJson(mini), broadcast=True)
 		return makeJsonResponse({"success": True})
 
 @bookRoutes.route('/sellable/', methods=['GET'])
