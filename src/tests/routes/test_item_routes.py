@@ -104,3 +104,15 @@ def test_item_route_when_get_request_is_made_to_sellable(mock_getSellableItems):
 	assert jsonResult['itemId'] == 1
 	assert jsonResult['title'] == "Cracking the Coding Interview"
 	assert jsonResult['upc'] == "9870984782857"
+
+@mock.patch('routes.items.itemService.updateRemoveAction')
+def test_item_route_when_a_put_request_is_made_to_remove_action(mock_updateRemoveAction):
+	restTestApp = app.test_client()
+	socketTestApp = socketio.test_client(app, flask_test_client=restTestApp)
+
+	restResult = restTestApp.put('/items/1/removeAction/1/')
+	socketResult = socketTestApp.get_received()
+
+	assert restResult.status_code == 200
+	assert len(socketResult[0]['args']) == 1
+	assert socketResult[0]['args'][0] == 1
