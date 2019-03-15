@@ -82,3 +82,25 @@ def test_item_routes_when_a_put_request_is_made(mock_editItem):
 	assert jsonResult['itemId'] == testItemId
 	assert jsonResult['title'] == testTitle
 	assert jsonResult['upc'] == testUpc
+
+@mock.patch('routes.items.itemService.getSellableItems')
+def test_item_route_when_get_request_is_made_to_sellable(mock_getSellableItems):
+	restTestApp = app.test_client()
+	mock_getSellableItems.return_value = [{
+		"itemId": 1,
+		"title": "Cracking the Coding Interview",
+		"upc": "9870984782857"
+	}]
+
+	restResult = restTestApp.get('/items/sellable/')
+
+	assert restResult.status_code == 200
+	assert restResult.is_json is True
+
+	jsonResult = restResult.get_json()
+
+	assert len(jsonResult) == 1
+	jsonResult = jsonResult[0]
+	assert jsonResult['itemId'] == 1
+	assert jsonResult['title'] == "Cracking the Coding Interview"
+	assert jsonResult['upc'] == "9870984782857"
