@@ -92,3 +92,26 @@ def test_book_routes_when_a_put_request_is_made(mock_bookItem):
 	assert jsonResult['title'] == testTitle
 	assert jsonResult['upc'] == testUpc
 	assert jsonResult['author'] == testAuthor
+
+@mock.patch('routes.books.bookService.getSellableBooks')
+def test_book_route_when_get_request_is_made_to_sellable(mock_getSellableBooks):
+	mock_getSellableBooks.return_value = [{
+		"itemId": 1,
+		"title": "Cracking the Coding Interview",
+		"upc": "9870984782857",
+		"author": "Gayle Laakmann McDowell"
+	}]
+
+	restResult = restTestApp.get('/books/sellable/')
+
+	assert restResult.status_code == 200
+	assert restResult.is_json is True
+
+	jsonResult = restResult.get_json()
+
+	assert len(jsonResult) == 1
+	jsonResult = jsonResult[0]
+	assert jsonResult['itemId'] == 1
+	assert jsonResult['title'] == "Cracking the Coding Interview"
+	assert jsonResult['upc'] == "9870984782857"
+	assert jsonResult['author'] == "Gayle Laakmann McDowell"
