@@ -5,10 +5,11 @@ from app import app
 from initialize import socketio
 from data.Item import Item
 
+restTestApp = app.test_client()
+socketTestApp = socketio.test_client(app, flask_test_client=restTestApp)
+
 @mock.patch('routes.items.itemService.createItem')
 def test_item_route_when_a_post_request_is_made(mock_createItem):
-	restTestApp = app.test_client()
-	socketTestApp = socketio.test_client(app, flask_test_client=restTestApp)
 	testItemId = 1
 	testTitle = 'Cracking the Coding Interview'
 	testUpc = '9870984782857'
@@ -46,9 +47,6 @@ def test_item_route_when_a_post_request_is_made(mock_createItem):
 
 @mock.patch('routes.items.itemService.editItem')
 def test_item_routes_when_a_put_request_is_made(mock_editItem):
-	restTestApp = app.test_client()
-	socketTestApp = socketio.test_client(app, flask_test_client=restTestApp)
-
 	testItemId = 1
 	testTitle = 'Cracking the Coding Interview'
 	testUpc = '9870984782857'
@@ -85,7 +83,6 @@ def test_item_routes_when_a_put_request_is_made(mock_editItem):
 
 @mock.patch('routes.items.itemService.getSellableItems')
 def test_item_route_when_get_request_is_made_to_sellable(mock_getSellableItems):
-	restTestApp = app.test_client()
 	mock_getSellableItems.return_value = [{
 		"itemId": 1,
 		"title": "Cracking the Coding Interview",
@@ -107,9 +104,6 @@ def test_item_route_when_get_request_is_made_to_sellable(mock_getSellableItems):
 
 @mock.patch('routes.items.itemService.updateRemoveAction')
 def test_item_route_when_a_put_request_is_made_to_remove_action(mock_updateRemoveAction):
-	restTestApp = app.test_client()
-	socketTestApp = socketio.test_client(app, flask_test_client=restTestApp)
-
 	restResult = restTestApp.put('/items/1/removeAction/1/')
 	socketResult = socketTestApp.get_received()
 
