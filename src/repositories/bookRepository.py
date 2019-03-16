@@ -45,8 +45,7 @@ class BookRepository:
 		cursor.execute('''SELECT item.itemId, title, upc, author
 						  FROM item
 						  INNER JOIN book ON item.itemId = book.itemId
-						  WHERE item.dateRemoved IS NULL
-						  ORDER BY item.title''')
+						  WHERE item.dateRemoved IS NULL''')
 		return cursor.fetchall()
 
 	def getBookById(self, itemId: int):
