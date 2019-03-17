@@ -58,7 +58,10 @@ class ItemRepository:
 						  condition = ?, datePurchased = ?, locationPurchased = ?,
 						  consignment = ?, amountPaid = ?, sellPrice = ?, shelfLocation = ?
 						  WHERE itemId = ?''', itemInsert)
+		count = cursor.rowcount
 		conn.commit()
+		if not count:
+			raise DatabaseIndexError(f'Item with itemId = {item.itemId} does not exist in database')
 
 	def getSellableItems(self):
 		conn = sqlite3.connect(self.dbConnection)
@@ -72,7 +75,11 @@ class ItemRepository:
 		conn.row_factory = item_factory
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM item WHERE itemId = ?', (itemId,))
-		return cursor.fetchone()
+		count = cursor.rowcount
+		item = cursor.fetchone()
+		if not count:
+			raise DatabaseIndexError(f'Item with itemId = {item.itemId} does not exist in database')
+		return item
 
 	def updateRemoveAction(self, itemId: int, status: bool):
 		conn = sqlite3.connect(self.dbConnection)

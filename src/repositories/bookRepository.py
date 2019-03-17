@@ -36,7 +36,10 @@ class BookRepository:
 		cursor.execute('''UPDATE book SET author = ?, edition = ?,
 						  printing = ?, cover = ?
 						  WHERE itemId = ?''', bookInsert)
+		count = cursor.rowcount
 		conn.commit()
+		if not count:
+			raise DatabaseIndexError(f'Item with itemId = {book.item.itemId} does not exist in database')
 
 	def getSellableBooks(self):
 		conn = sqlite3.connect(self.dbConnection)
@@ -56,4 +59,8 @@ class BookRepository:
 						  FROM book
 						  INNER JOIN item ON book.itemId = item.itemId
 						  WHERE book.itemId = ?''', (itemId,))
-		return cursor.fetchone()
+		count = cursor.rowcount
+		book = cursor.fetchone()
+		if not count:
+			raise DatabaseIndexError(f'Item with itemId = {itemId} does not exist in database')
+		return book
