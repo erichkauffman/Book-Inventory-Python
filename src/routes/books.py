@@ -37,15 +37,23 @@ def books():
 			return makeJsonResponse({"success": False, "message": f"'{failedKey[-1]}' must not be null"}), 400
 
 	elif request.method == 'PUT':
-		jsonreq = request.get_json(force=True)
-		putBook = bookAssembler(jsonreq)
-		bookService.editBook(putBook)
-		mini = {'itemId': putBook.item.itemId,
-				'title': putBook.item.title,
-				'upc': putBook.item.upc,
-				'author': putBook.author}
-		socketio.emit('update_book', makeJson(mini), broadcast=True)
-		return makeJsonResponse({"success": True})
+		try:
+			jsonreq = request.get_json(force=True)
+			putBook = bookAssembler(jsonreq)
+			bookService.editBook(putBook)
+			mini = {'itemId': putBook.item.itemId,
+					'title': putBook.item.title,
+					'upc': putBook.item.upc,
+					'author': putBook.author}
+			socketio.emit('update_book', makeJson(mini), broadcast=True)
+			return makeJsonResponse({"success": True})
+		except KeyError as e:
+			return makeJsonResponse({"success": False, "message": f"Could not find {str(e)} key in received data"}), 400
+		except DatabaseIndexError as e:
+			return makeJsonResponse({"success": False, "message": str(e)}), 404
+		except IntegrityError as e:
+			failedKey = str(e).split()[-1].split('.')
+			return makeJsonResponse({"success": False, "message": f"'{failedKey[-1]}' must not be null"}), 400
 
 @bookRoutes.route('/sellable/', methods=['GET'])
 def booksSellable():
