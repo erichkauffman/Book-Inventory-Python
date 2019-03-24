@@ -18,8 +18,8 @@ jobs:
             python -m pytest
       - save_cache:
           key: v1-{{ checksum "requirements.txt" }}
-        paths:
-          "venv"
+          paths:
+            "venv"
   deploy:
     machine: true
     steps:
