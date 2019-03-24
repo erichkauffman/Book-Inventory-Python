@@ -3,3 +3,5 @@ flask-cors==3.0.7
 flask-socketio==3.3.2
 jsonpickle==1.1
 pytest==4.3.1
+gunicorn==19.9.0
+eventlet==0.24.1
