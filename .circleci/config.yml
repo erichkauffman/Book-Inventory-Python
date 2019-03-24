@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-{{ checksum "requirements.txt" }}
+          key: v2-{{ checksum "requirements.txt" }}
       - run:
           command: |
             mkdir -p ./venv
@@ -17,7 +17,7 @@ jobs:
             cd src/
             python -m pytest
       - save_cache:
-          key: v1-{{ checksum "requirements.txt" }}
+          key: v2-{{ checksum "requirements.txt" }}
           paths:
             "venv"
   deploy:
