@@ -2,3 +2,4 @@
 **/.pytest_cache
 /src/sqlscripts
 /src/config.example.py
+/src/db

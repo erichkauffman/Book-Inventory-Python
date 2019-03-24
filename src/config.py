@@ -1,1 +1,1 @@
-database = "../db/inventory.db"
+database = "db/inventory.db"
