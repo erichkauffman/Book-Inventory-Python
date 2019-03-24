@@ -5,6 +5,8 @@ jobs:
       - image: circleci/python:3.6.5-jessie
     steps:
       - checkout
+      - restore_cache:
+        key: v1-{{ checksum "requirements.txt" }}
       - run:
           command: |
             mkdir -p ./venv
@@ -14,7 +16,10 @@ jobs:
             pip install -r requirements.txt
             cd src/
             python -m pytest
-  
+      - save_cache:
+        key: v1-{{ checksum "requirements.txt" }}
+        paths:
+          "venv"
   deploy:
     machine: true
     steps:
