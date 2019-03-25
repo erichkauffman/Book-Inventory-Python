@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    ports:
+      - 5000:5000
+    volumes:
+      - ${PATHTODB}:/app/db
+    environment:
+      - APIENV=Production
+
+  server:
+    build: ./nginx
+    ports:
+      - 9000:9000
+    depends_on:
+      - api
