@@ -16,3 +16,19 @@ services:
       - 9000:9000
     depends_on:
       - api
+
+  api-staging:
+    build: .
+    ports:
+      - 5001:5000
+    volumes:
+      - ${PATHTOSTAGINGDB}:/app/db
+    environment:
+      - APIENV=Staging
+
+  server-staging:
+    build: ./nginx
+    ports:
+      - 9001:9000
+    depends_on:
+      - api-staging
