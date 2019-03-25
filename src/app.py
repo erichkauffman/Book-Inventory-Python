@@ -5,6 +5,7 @@ from routes.items import itemRoutes
 from routes.locations import locationRoutes
 from routes.phrases import phraseRoutes
 import flask_cors
+import os
 
 app = create_app()
 flask_cors.CORS(app=app)
@@ -16,7 +17,7 @@ app.register_blueprint(phraseRoutes, url_prefix='/phrases')
 
 @app.route('/')
 def index():
-    return "Hello!"
+    return f"Hello, {os.environ['APIENV']}!"
 
 @app.errorhandler(404)
 def notFound(e):
