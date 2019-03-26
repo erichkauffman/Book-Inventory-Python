@@ -3,16 +3,44 @@ version: '3'
 services:
   api:
     build: .
-    ports:
-      - 5000:5000
     volumes:
       - ${PATHTODB}:/app/db
     environment:
       - APIENV=Production
+    networks:
+      - production
 
   server:
     build: ./nginx
     ports:
       - 9000:9000
+    networks:
+      - production
     depends_on:
       - api
+
+  api-staging:
+    build: .
+    volumes:
+      - ${PATHTOSTAGINGDB}:/app/db
+    environment:
+      - APIENV=Staging
+    networks:
+      staging:
+        aliases:
+          - api
+
+  server-staging:
+    build: ./nginx
+    ports:
+      - 9001:9000
+    networks:
+      staging:
+        aliases:
+          - server
+    depends_on:
+      - api-staging
+
+networks:
+  production:
+  staging:
