@@ -9,7 +9,7 @@ from config import database
 savedDataService = SavedDataService(SavedDataRepository(database))
 
 savedDataRoutes = Blueprint("savedData", __name__)
-savedDataTypes = ['phrases', 'locations']
+savedDataTypes = ['phrases', 'locations', 'shelves']
 
 @savedDataRoutes.route('/<string:dataType>/', methods=['GET', 'POST', 'DELETE'])
 def savedData(dataType):
