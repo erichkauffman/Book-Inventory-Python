@@ -7,7 +7,8 @@ class SavedDataRepository:
 	def getData(self, dataType: str):
 		getSql = {
 			'phrases': 'SELECT * FROM phrase',
-			'locations': 'SELECT * FROM location'
+			'locations': 'SELECT * FROM location',
+			'shelves': 'SELECT * FROM shelf'
 		}
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
@@ -22,7 +23,8 @@ class SavedDataRepository:
 	def setData(self, dataType: str, data: str):
 		setSql = {
 			'phrases': 'INSERT INTO phrase(phrase) VALUES (?)',
-			'locations': 'INSERT INTO location(location) VALUES (?)'
+			'locations': 'INSERT INTO location(location) VALUES (?)',
+			'shelves': 'INSERT INTO shelf(shelf) VALUES (?)'
 		}
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
@@ -32,7 +34,8 @@ class SavedDataRepository:
 	def deleteData(self, dataType: str, data: str):
 		deleteSql = {
 			'phrases': 'DELETE FROM phrase WHERE phrase = ?',
-			'locations': 'DELETE FROM location WHERE location = ?'
+			'locations': 'DELETE FROM location WHERE location = ?',
+			'shelves': 'DELETE FROM shelf WHERE shelf = ?'
 		}
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
