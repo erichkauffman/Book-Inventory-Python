@@ -25,5 +25,5 @@ class ItemService:
 		item.siteListed = self.siteRepo.getSitesById(itemId)
 		return item
 
-	def updateRemoveAction(self, itemId: int, status: bool):
+	def updateRemoveAction(self, itemId: int, status: int):
 		self.itemRepo.updateRemoveAction(itemId, status)

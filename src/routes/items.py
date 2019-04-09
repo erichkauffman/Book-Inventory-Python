@@ -68,15 +68,8 @@ def itemById(itemId):
 @itemRoutes.route('/<int:itemId>/removeAction/<int:status>/', methods=['PUT'])
 def updateRemoveAction(itemId, status):
 	if request.method == 'PUT':
-		if status == 1:
-			boolStatus = True
-		elif status == 0:
-			boolStatus = False
-		else:
-			return makeJsonResponse({"success": False, "message": f"Cannot understand {status}"}), 400
-
 		try:
-			itemService.updateRemoveAction(itemId, boolStatus)
+			itemService.updateRemoveAction(itemId, status)
 			socketio.emit('delete_item', itemId)
 			return makeJsonResponse({"success": True})
 		except DatabaseIndexError as e:
