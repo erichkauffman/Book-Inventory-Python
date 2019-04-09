@@ -81,7 +81,7 @@ class ItemRepository:
 			raise DatabaseIndexError(f'Item with itemId = {item.itemId} does not exist in database')
 		return item
 
-	def updateRemoveAction(self, itemId: int, status: bool):
+	def updateRemoveAction(self, itemId: int, status: int):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
 		cursor.execute("UPDATE item SET removalAction = ?, dateRemoved = date('now') WHERE itemId = ?", (status, itemId))
