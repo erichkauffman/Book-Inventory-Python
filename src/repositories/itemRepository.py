@@ -24,6 +24,7 @@ class ItemRepository:
 			item.sellPrice,
 			item.shelfLocation,
 			item.removalAction,
+			item.siteSold,
 			item.dateRemoved
 		)
 		conn = sqlite3.connect(self.dbConnection)
@@ -31,8 +32,8 @@ class ItemRepository:
 		cursor.execute('''INSERT INTO
 							item (title, upc, year, description, condition, datePurchased,
 								  locationPurchased, consignment, amountPaid, sellPrice, 
-								  shelfLocation, removalAction, dateRemoved)
-							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+								  shelfLocation, removalAction, siteSold, dateRemoved)
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
 						itemInsert)
 		conn.commit()
 		return cursor.lastrowid
