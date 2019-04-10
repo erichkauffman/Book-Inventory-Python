@@ -11,6 +11,7 @@ INSERT INTO item (
 	sellPrice,
 	shelfLocation,
 	removalAction,
+	siteSold,
 	dateRemoved)
 VALUES (
 "Cracking the Coding Interview",
@@ -24,5 +25,6 @@ VALUES (
 2000,
 1200,
 "FBA",
+null,
 null,
 null);

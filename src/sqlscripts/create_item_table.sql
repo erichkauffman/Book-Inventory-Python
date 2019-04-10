@@ -12,4 +12,5 @@ amountPaid INT,
 sellPrice INT,
 shelfLocation TEXT NOT NULL,
 removalAction INT,
+siteSold INT,
 dateRemoved DATE);
