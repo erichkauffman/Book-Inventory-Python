@@ -27,3 +27,6 @@ class ItemService:
 
 	def updateRemoveAction(self, itemId: int, status: int):
 		self.itemRepo.updateRemoveAction(itemId, status)
+
+	def sellItem(self, itemId: int, site: int):
+		self.itemRepo.updateItemAsSold(itemId, site)
