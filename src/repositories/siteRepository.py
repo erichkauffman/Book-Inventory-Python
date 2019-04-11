@@ -7,13 +7,13 @@ class SiteRepository:
 	def setSite(self, itemId: int, site: int):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
-		cursor.execute('INSERT INTO siteListed(itemId, site) VALUES (?,?)', (itemId, site))
+		cursor.execute('INSERT INTO site(itemId, site, siteId) VALUES (?,?,?)', (itemId, site))
 		conn.commit()
 
 	def getSitesById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
-		cursor.execute('SELECT site FROM siteListed WHERE itemId = ?', (itemId,))
+		cursor.execute('SELECT site FROM site WHERE itemId = ?', (itemId,))
 		conn.commit()
 		siteTuples = cursor.fetchall()
 		sites = []
@@ -24,7 +24,7 @@ class SiteRepository:
 	def editSite(self, itemId: int, sites: int):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
-		cursor.execute('DELETE FROM siteListed WHERE itemId = ?', (itemId,))
+		cursor.execute('DELETE FROM site WHERE itemId = ?', (itemId,))
 		conn.commit()
 		for site in sites:
 			self.setSite(itemId, site)
