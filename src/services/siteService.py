@@ -7,5 +7,5 @@ class SiteService:
 	def getSitesById(self, itemId: int):
 		return self.siteRepo.getSitesById(itemId)
 
-	def getSitesValuesById(self, itemId: int):
+	def getSiteValuesById(self, itemId: int):
 		return self.siteRepo.getSiteValuesById(itemId)
