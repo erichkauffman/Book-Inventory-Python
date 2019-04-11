@@ -39,4 +39,4 @@ def bookAssembler(dictionary):
 	)
 
 def siteAssembler(dictionary):
-	return Site(dictionary.site, dictionary.siteId)
+	return Site(dictionary['site'], dictionary['siteId'])
