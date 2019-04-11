@@ -10,8 +10,8 @@ def makeJsonResponse(data):
 	res.headers['Content-Type'] = 'application/json'
 	return res
 
-def makeCsvResponse(csv):
+def makeCsvResponse(csv, name):
 	res = make_response(csv)
-	res.headers['Content-Disposition'] = 'attachment; filename=db.csv'
+	res.headers['Content-Disposition'] = f'attachment; filename={name}.csv'
 	res.headers['Content-type'] = 'text/csv'
 	return res

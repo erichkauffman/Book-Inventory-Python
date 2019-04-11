@@ -74,4 +74,4 @@ def bookById(itemId):
 def itemCsv():
 	if request.method == 'GET':
 		csv = bookService.buildCsv()
-		return makeCsvResponse(csv)
+		return makeCsvResponse(csv, 'books')

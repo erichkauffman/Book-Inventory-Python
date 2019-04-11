@@ -90,4 +90,4 @@ def sellItem(itemId):
 def itemCsv():
 	if request.method == 'GET':
 		csv = itemService.buildCsv()
-		return makeCsvResponse(csv)
+		return makeCsvResponse(csv, 'items')
