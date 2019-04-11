@@ -34,7 +34,7 @@ def test_book_route_when_a_post_request_is_made(mock_createBook):
 			'removalAction': None,
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
-			'siteListed': 1,
+			'siteListed': [{'site':1, 'siteId':1234567890}],
 			'siteSold': None,
 			'title': testTitle,
 			'year': 2015
@@ -77,7 +77,7 @@ def test_book_routes_when_a_put_request_is_made(mock_bookItem):
 			'removalAction': None,
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
-			'siteListed': 1,
+			'siteListed': [{'site':1, 'siteId':1234567890}],
 			'siteSold': None,
 			'title': testTitle,
 			'year': 2015

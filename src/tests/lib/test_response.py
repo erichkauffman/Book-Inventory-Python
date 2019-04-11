@@ -2,6 +2,7 @@ from flask import Flask
 from lib.response import makeJsonResponse
 from data.Book import Book
 from data.Item import Item
+from data.Site import Site
 
 app = Flask(__name__)
 
@@ -9,28 +10,28 @@ def test_make_json_response_from_object():
 	with app.app_context():
 		book = [Book(
 			Item(
-	 	       	5,
-	 	       	"Cracking the Coding Interview",
-	 	       	"9870984782857",
-	 	       	2015,
-	 	       	"A very good book for practicing algorithms",
-	 	       	2,
-	 	       	"2016-12-6",
-	        	"Online",
+				5,
+				"Cracking the Coding Interview",
+				"9870984782857",
+				2015,
+				"A very good book for practicing algorithms",
+				2,
+				"2016-12-6",
+				"Online",
 				False,
-	        	2000,
-	       		1200,
-	        	1,
+				2000,
+				1200,
+				[Site(1, 1234567890)],
 				"A1",
-	        	None,
 				None,
-	        	None
+				None,
+				None
 			),
-	        "Gayle Laakmann McDowell",
-	        6,
-	        15,
-	        0
-	    )]
+			"Gayle Laakmann McDowell",
+			6,
+			15,
+			0
+		)]
 		response = makeJsonResponse(book)
 		assert response.status_code == 200
 		assert response.is_json is True
@@ -49,7 +50,8 @@ def test_make_json_response_from_object():
 		assert jsonResult['item']['consignment'] is False
 		assert jsonResult['item']['amountPaid'] == 2000
 		assert jsonResult['item']['sellPrice'] == 1200
-		assert jsonResult['item']['siteListed'] == 1
+		assert jsonResult['item']['siteListed'][0]['site'] == 1
+		assert jsonResult['item']['siteListed'][0]['siteId'] == 1234567890
 		assert jsonResult['item']['shelfLocation'] == "A1"
 		assert jsonResult['item']['removalAction'] is None
 		assert jsonResult['item']['dateRemoved'] is None
