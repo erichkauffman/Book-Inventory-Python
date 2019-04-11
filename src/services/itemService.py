@@ -1,7 +1,7 @@
 from repositories.itemRepository import ItemRepository
 from repositories.siteRepository import SiteRepository
 from data.Item import Item
-from lib.csv import itemCsv
+from lib.itemCsv import itemCsv
 
 class ItemService:
 	def __init__(self, itemRepository: ItemRepository, siteRepository: SiteRepository):
