@@ -7,7 +7,7 @@ class SiteRepository:
 	def __init__(self, dbConnection: str):
 		self.dbConnection = dbConnection
 
-	def getSiteById(self, itemId: int):
+	def getSitesById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = site_factory
 		cursor = conn.cursor()
