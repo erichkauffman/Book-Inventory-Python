@@ -22,7 +22,7 @@ def itemAssembler(dictionary):
 		dictionary['dateRemoved']
 	)
 	if 'siteListed' in dictionary:
-		item.siteListed = map(siteAssembler, dictionary['siteListed'])
+		item.siteListed = list(map(siteAssembler, dictionary['siteListed']))
 	return item
 
 def bookAssembler(dictionary):
