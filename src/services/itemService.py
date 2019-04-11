@@ -1,6 +1,7 @@
 from repositories.itemRepository import ItemRepository
 from repositories.siteRepository import SiteRepository
 from data.Item import Item
+from lib.itemCsv import itemCsv
 
 class ItemService:
 	def __init__(self, itemRepository: ItemRepository, siteRepository: SiteRepository):
@@ -30,3 +31,10 @@ class ItemService:
 
 	def sellItem(self, itemId: int, site: int):
 		self.itemRepo.updateItemAsSold(itemId, site)
+
+	def buildCsv(self):
+		csv = ''
+		itemList = self.itemRepo.allItems()
+		for item in itemList:
+			csv += itemCsv(item) + '\n'
+		return csv

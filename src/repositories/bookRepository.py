@@ -8,6 +8,16 @@ class BookRepository:
 	def __init__(self, dbConnection: str):
 		self.dbConnection = dbConnection
 
+	def allBooks(self):
+		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = book_factory
+		cursor = conn.cursor()
+		cursor.execute('''SELECT *
+						  FROM book
+						  INNER JOIN item ON book.itemId = item.itemId''')
+		return cursor.fetchall()
+
+
 	def createNewBook(self, book: Book):
 		bookInsert = (
             book.author,

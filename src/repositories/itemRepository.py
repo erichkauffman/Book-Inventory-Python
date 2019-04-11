@@ -10,6 +10,13 @@ class ItemRepository:
 	def __init__(self, dbConnection: str):
 		self.dbConnection = dbConnection
 
+	def allItems(self):
+		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = item_factory
+		cursor = conn.cursor()
+		cursor.execute('SELECT * FROM item')
+		return cursor.fetchall()
+
 	def createNewItem(self, item: Item):
 		itemInsert = (
 			item.title,
