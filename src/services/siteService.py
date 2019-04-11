@@ -1,3 +1,4 @@
+from data.Site import Site
 from repositories.siteRepository import SiteRepository
 
 class SiteService:
@@ -9,3 +10,6 @@ class SiteService:
 
 	def getSiteValuesById(self, itemId: int):
 		return self.siteRepo.getSiteValuesById(itemId)
+
+	def setSite(self, site:Site):
+		return self.siteRepo.setSite(site)
