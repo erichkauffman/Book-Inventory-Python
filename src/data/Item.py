@@ -14,6 +14,7 @@ class Item:
 				 siteListed: int,
 				 shelfLocation: str,
 				 removalAction: bool,
+				 siteSold: int,
 				 dateRemoved: str):
 		self.itemId = itemId
 		self.title = title
@@ -29,4 +30,5 @@ class Item:
 		self.siteListed = siteListed
 		self.shelfLocation = shelfLocation
 		self.removalAction = removalAction
+		self.siteSold = siteSold
 		self.dateRemoved = dateRemoved

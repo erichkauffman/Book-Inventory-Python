@@ -17,6 +17,7 @@ def itemAssembler(dictionary):
 		None,
 		dictionary['shelfLocation'],
 		dictionary['removalAction'],
+		dictionary['siteSold'],
 		dictionary['dateRemoved']
 	)
 	if 'siteListed' in dictionary:

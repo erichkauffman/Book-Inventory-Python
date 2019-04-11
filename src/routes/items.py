@@ -74,3 +74,14 @@ def updateRemoveAction(itemId, status):
 			return makeJsonResponse({"success": True})
 		except DatabaseIndexError as e:
 			return makeJsonResponse({"success": False, "message": str(e)}), 404
+
+@itemRoutes.route('/<int:itemId>/sell/', methods=['PUT'])
+def sellItem(itemId):
+	if request.method == 'PUT':
+		try:
+			jsonreq = request.get_json(force=True)
+			itemService.sellItem(itemId, jsonreq['site'])
+			socketio.emit('delete_item', itemId)
+			return makeJsonResponse({"success": True})
+		except DatabaseIndexError as e:
+			return makeJsonResponse({"success": False, "message": str(e)}), 404

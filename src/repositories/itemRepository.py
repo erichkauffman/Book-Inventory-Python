@@ -24,6 +24,7 @@ class ItemRepository:
 			item.sellPrice,
 			item.shelfLocation,
 			item.removalAction,
+			item.siteSold,
 			item.dateRemoved
 		)
 		conn = sqlite3.connect(self.dbConnection)
@@ -31,8 +32,8 @@ class ItemRepository:
 		cursor.execute('''INSERT INTO
 							item (title, upc, year, description, condition, datePurchased,
 								  locationPurchased, consignment, amountPaid, sellPrice, 
-								  shelfLocation, removalAction, dateRemoved)
-							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+								  shelfLocation, removalAction, siteSold, dateRemoved)
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
 						itemInsert)
 		conn.commit()
 		return cursor.lastrowid
@@ -85,6 +86,15 @@ class ItemRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
 		cursor.execute("UPDATE item SET removalAction = ?, dateRemoved = date('now') WHERE itemId = ?", (status, itemId))
+		count = cursor.rowcount
+		conn.commit()
+		if not count:
+			raise DatabaseIndexError(f'Item with itemId = {itemId} does not exist in database')
+
+	def updateItemAsSold(self, itemId: int, site: int):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute("UPDATE item SET removalAction = 0, siteSold = ?, dateRemoved = date('now') WHERE itemId = ?", (site, itemId))
 		count = cursor.rowcount
 		conn.commit()
 		if not count:

@@ -23,6 +23,7 @@ def test_make_json_response_from_object():
 	        	1,
 				"A1",
 	        	None,
+				None,
 	        	None
 			),
 	        "Gayle Laakmann McDowell",

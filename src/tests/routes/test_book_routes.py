@@ -35,6 +35,7 @@ def test_book_route_when_a_post_request_is_made(mock_createBook):
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
 			'siteListed': 1,
+			'siteSold': None,
 			'title': testTitle,
 			'year': 2015
 		}
@@ -77,6 +78,7 @@ def test_book_routes_when_a_put_request_is_made(mock_bookItem):
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
 			'siteListed': 1,
+			'siteSold': None,
 			'title': testTitle,
 			'year': 2015
 		}

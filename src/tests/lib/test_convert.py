@@ -16,6 +16,7 @@ def test_item_assembler():
 		'sellPrice': 1200,
 		'shelfLocation': 'FBA',
 		'siteListed': [1],
+		'siteSold': None,
 		'title': 'Cracking the Coding Interview',
 		'year': 2015
 	}
@@ -33,6 +34,7 @@ def test_item_assembler():
 	assert itemObject.sellPrice == 1200
 	assert itemObject.shelfLocation == 'FBA'
 	assert itemObject.siteListed == [1]
+	assert itemObject.siteSold is None
 	assert itemObject.removalAction is None
 	assert itemObject.dateRemoved is None
 
@@ -53,6 +55,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 			'sellPrice': 1200,
 			'shelfLocation': 'FBA',
 			'siteListed': [1],
+			'siteSold': None,
 			'title': 'Cracking the Coding Interview',
 			'year': 2015
 		},
@@ -79,6 +82,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 	assert bookObject.item.sellPrice == 1200
 	assert bookObject.item.shelfLocation == 'FBA'
 	assert bookObject.item.siteListed == [1]
+	assert bookObject.item.siteSold is None
 	assert bookObject.item.removalAction is None
 	assert bookObject.item.dateRemoved is None
 
@@ -97,6 +101,7 @@ def test_book_assembler_when_item_is_not_a_subdictionary():
 		'sellPrice': 1200,
 		'shelfLocation': 'FBA',
 		'siteListed': [1],
+		'siteSold': None,
 		'title': 'Cracking the Coding Interview',
 		'year': 2015,
 		'author': 'Gayle Laakmann McDowell',
@@ -123,5 +128,6 @@ def test_book_assembler_when_item_is_not_a_subdictionary():
 	assert bookObject.item.sellPrice == 1200
 	assert bookObject.item.shelfLocation == 'FBA'
 	assert bookObject.item.siteListed == [1]
+	assert bookObject.item.siteSold is None
 	assert bookObject.item.removalAction is None
 	assert bookObject.item.dateRemoved is None

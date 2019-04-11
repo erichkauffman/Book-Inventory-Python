@@ -30,6 +30,7 @@ def test_item_route_when_a_post_request_is_made(mock_createItem):
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
 			'siteListed': 1,
+			'siteSold': None,
 			'title': testTitle,
 			'year': 2015
 		}
@@ -66,6 +67,7 @@ def test_item_routes_when_a_put_request_is_made(mock_editItem):
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
 			'siteListed': 1,
+			'siteSold': None,
 			'title': testTitle,
 			'year': 2015
 		}
@@ -105,6 +107,15 @@ def test_item_route_when_get_request_is_made_to_sellable(mock_getSellableItems):
 @mock.patch('routes.items.itemService.updateRemoveAction')
 def test_item_route_when_a_put_request_is_made_to_remove_action(mock_updateRemoveAction):
 	restResult = restTestApp.put('/items/1/removeAction/1/')
+	socketResult = socketTestApp.get_received()
+
+	assert restResult.status_code == 200
+	assert len(socketResult[0]['args']) == 1
+	assert socketResult[0]['args'][0] == 1
+
+@mock.patch('routes.items.itemService.sellItem')
+def test_item_route_when_a_put_request_is_made_to_sell_item(mock_sellItem):
+	restResult = restTestApp.put('/items/1/sell/', json={'site':0})
 	socketResult = socketTestApp.get_received()
 
 	assert restResult.status_code == 200
