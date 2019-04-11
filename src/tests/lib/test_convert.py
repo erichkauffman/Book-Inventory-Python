@@ -1,5 +1,13 @@
-from lib.convert import itemAssembler
-from lib.convert import bookAssembler
+from lib.convert import itemAssembler, bookAssembler, siteAssembler
+
+def test_site_assembler():
+	siteDict = {
+		'site': 0,
+		'siteId': 1234
+	}
+	siteObject = siteAssembler(siteDict)
+	assert siteObject.site == 0
+	assert siteObject.siteId == 1234
 
 def test_item_assembler():
 	itemDict = {
