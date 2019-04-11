@@ -35,6 +35,8 @@ class ItemService:
 	def buildCsv(self):
 		csv = ''
 		itemList = self.itemRepo.allItems()
+		for index, item in enumerate(itemList):
+			itemList[index].siteListed = self.siteService.getSitesById(item.itemId)
 		for item in itemList:
 			csv += itemCsv(item) + '\n'
 		return csv
