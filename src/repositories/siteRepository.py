@@ -1,16 +1,19 @@
 import sqlite3
 
 from data.Site import Site
+from lib.database import site_factory
 
 class SiteRepository:
 	def __init__(self, dbConnection: str):
 		self.dbConnection = dbConnection
 
-	def setSite(self, itemId: int, site: Site):
+	def getSiteById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
+		conn.row_factory = site_factory
 		cursor = conn.cursor()
-		cursor.execute('INSERT INTO site(itemId, site, siteId) VALUES (?,?,?)', (itemId, site.site, site.siteId))
+		cursor.execute('SELECT * FROM site WHERE itemId = ?', (itemId,))
 		conn.commit()
+		return cursor.fetchall()
 
 	def getSiteValuesById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
@@ -22,6 +25,12 @@ class SiteRepository:
 		for siteTuple in siteTuples:
 			sites.append(siteTuple[0])
 		return sites
+
+	def setSite(self, itemId: int, site: Site):
+		conn = sqlite3.connect(self.dbConnection)
+		cursor = conn.cursor()
+		cursor.execute('INSERT INTO site(itemId, site, siteId) VALUES (?,?,?)', (itemId, site.site, site.siteId))
+		conn.commit()
 
 	def editSite(self, itemId: int, sites: Site):
 		conn = sqlite3.connect(self.dbConnection)
