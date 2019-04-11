@@ -1,5 +1,6 @@
 from data.Item import Item
 from data.Book import Book
+from data.Site import Site
 
 def itemAssembler(dictionary):
 	item = Item(
@@ -36,3 +37,6 @@ def bookAssembler(dictionary):
 		dictionary['printing'],
 		dictionary['cover']
 	)
+
+def siteAssembler(dictionary):
+	return Site(dictionary.site, dictionary.siteId)
