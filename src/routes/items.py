@@ -5,7 +5,7 @@ from services.itemService import ItemService
 from repositories.itemRepository import ItemRepository
 from repositories.siteRepository import SiteRepository
 from lib.convert import itemAssembler
-from lib.response import makeJson, makeJsonResponse
+from lib.response import makeJson, makeJsonResponse, makeCsvResponse
 from lib.exceptions import DatabaseIndexError
 from initialize import socketio
 from config import database
@@ -85,3 +85,9 @@ def sellItem(itemId):
 			return makeJsonResponse({"success": True})
 		except DatabaseIndexError as e:
 			return makeJsonResponse({"success": False, "message": str(e)}), 404
+
+@itemRoutes.route('/csv/', methods=['GET'])
+def itemCsv():
+	if request.method == 'GET':
+		csv = itemService.buildCsv()
+		return makeCsvResponse(csv)

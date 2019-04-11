@@ -7,7 +7,7 @@ from repositories.bookRepository import BookRepository
 from repositories.itemRepository import ItemRepository
 from repositories.siteRepository import SiteRepository
 from lib.convert import bookAssembler
-from lib.response import makeJson, makeJsonResponse
+from lib.response import makeJson, makeJsonResponse, makeCsvResponse
 from lib.exceptions import DatabaseIndexError
 from initialize import socketio
 from config import database
@@ -69,3 +69,9 @@ def bookById(itemId):
 			return makeJsonResponse(book)
 		except DatabaseIndexError as e:
 			return makeJsonResponse({"success": False, "message": str(e)}), 404
+
+@bookRoutes.route('/csv/', methods=['GET'])
+def itemCsv():
+	if request.method == 'GET':
+		csv = bookService.buildCsv()
+		return makeCsvResponse(csv)
