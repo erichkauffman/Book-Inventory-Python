@@ -12,7 +12,7 @@ class SiteRepository:
 		cursor.execute('INSERT INTO site(itemId, site, siteId) VALUES (?,?,?)', (itemId, site.site, site.siteId))
 		conn.commit()
 
-	def getSitesById(self, itemId: int):
+	def getSiteValuesById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		cursor = conn.cursor()
 		cursor.execute('SELECT site FROM site WHERE itemId = ?', (itemId,))
