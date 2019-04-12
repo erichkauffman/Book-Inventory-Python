@@ -12,5 +12,5 @@ siteRoutes = Blueprint('sites', __name__)
 @siteRoutes.route('/<int:itemId>/', methods=['GET'])
 def sitesById(itemId):
 	if request.method == 'GET':
-		sites = siteService.getSitesById(itemId)
+		sites = siteService.getSiteValuesById(itemId)
 		return makeJsonResponse(sites)

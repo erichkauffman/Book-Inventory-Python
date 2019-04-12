@@ -29,7 +29,7 @@ def test_item_route_when_a_post_request_is_made(mock_createItem):
 			'removalAction': None,
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
-			'siteListed': 1,
+			'siteListed': [{'site':0, 'siteId':1234567890}],
 			'siteSold': None,
 			'title': testTitle,
 			'year': 2015
@@ -66,7 +66,7 @@ def test_item_routes_when_a_put_request_is_made(mock_editItem):
 			'removalAction': None,
 			'sellPrice': 1200,
 			'shelfLocation': 'A1',
-			'siteListed': 1,
+			'siteListed': [{'site':0, 'siteId':1234567890}],
 			'siteSold': None,
 			'title': testTitle,
 			'year': 2015

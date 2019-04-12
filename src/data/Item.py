@@ -1,3 +1,5 @@
+from data.Site import Site
+
 class Item:
 	def __init__(self,
 				 itemId: int,
@@ -11,7 +13,7 @@ class Item:
 				 consignment: bool,
 				 amountPaid: int,
 				 sellPrice: int,
-				 siteListed: int,
+				 siteListed: Site,
 				 shelfLocation: str,
 				 removalAction: bool,
 				 siteSold: int,

@@ -1,5 +1,6 @@
 from data.Item import Item
 from data.Book import Book
+from data.Site import Site
 
 def itemAssembler(dictionary):
 	item = Item(
@@ -21,7 +22,7 @@ def itemAssembler(dictionary):
 		dictionary['dateRemoved']
 	)
 	if 'siteListed' in dictionary:
-		item.siteListed = dictionary['siteListed']
+		item.siteListed = list(map(siteAssembler, dictionary['siteListed']))
 	return item
 
 def bookAssembler(dictionary):
@@ -36,3 +37,6 @@ def bookAssembler(dictionary):
 		dictionary['printing'],
 		dictionary['cover']
 	)
+
+def siteAssembler(dictionary):
+	return Site(dictionary['site'], dictionary['siteId'])
