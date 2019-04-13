@@ -15,7 +15,7 @@ class ItemService:
 
 	def editItem(self, item: Item):
 		self.itemRepo.editItem(item)
-		self.siteService.editSite(item.itemId, item.siteListed)
+		self.siteService.editSites(item.itemId, item.siteListed)
 
 	def getSellableItems(self):
 		return self.itemRepo.getSellableItems()

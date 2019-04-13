@@ -11,5 +11,5 @@ class SiteService:
 	def setSites(self, site: Site):
 		self.siteRepo.setSites(site)
 
-	def editSite(self, siteList: Site):
-		self.siteRepo.editSite(siteList)
+	def editSites(self, siteList: Site):
+		self.siteRepo.editSites(siteList)
