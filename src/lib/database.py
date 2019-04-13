@@ -5,9 +5,9 @@ def factory_helper(cursor, row):
 	sites = []
 	siteIds = []
 	for index, columnName in enumerate(cursor.description):
-		if columnName[0] == 'group_concat(site.site)':
+		if columnName[0] == 'group_concat(site.site)' and row[index] is not None:
 			sites = row[index].split(',')
-		elif columnName[0] == 'group_concat(site.siteId)':
+		elif columnName[0] == 'group_concat(site.siteId)' and row[index] is not None:
 			siteIds = row[index].split(',')
 		else:
 			dictionary[columnName[0]] = row[index]
@@ -27,7 +27,7 @@ def book_factory(cursor, row):
 def mini_factory(cursor, row):
 	dictionary = {}
 	for index, columnName in enumerate(cursor.description):
-		if columnName[0] == 'group_concat(site.siteId)':
+		if columnName[0] == 'group_concat(site.siteId)' and row[index] is not None:
 			dictionary['siteId'] = row[index].split(',')
 		else:
 			dictionary[columnName[0]] = row[index]
