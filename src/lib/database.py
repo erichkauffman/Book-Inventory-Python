@@ -21,5 +21,8 @@ def site_factory(cursor, row):
 def mini_factory(cursor, row):
 	dictionary = {}
 	for index, columnName in enumerate(cursor.description):
-		dictionary[columnName[0]] = row[index]
+		if columnName[0] == 'group_concat(site.siteId)':
+			dictionary['siteIds'] = row[index].split(',')
+		else:
+			dictionary[columnName[0]] = row[index]
 	return dictionary
