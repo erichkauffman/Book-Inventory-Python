@@ -1,19 +1,10 @@
 import sqlite3
 
 from data.Site import Site
-from lib.database import site_factory
 
 class SiteRepository:
 	def __init__(self, dbConnection: str):
 		self.dbConnection = dbConnection
-
-	def getSitesById(self, itemId: int):
-		conn = sqlite3.connect(self.dbConnection)
-		conn.row_factory = site_factory
-		cursor = conn.cursor()
-		cursor.execute('SELECT * FROM site WHERE itemId = ?', (itemId,))
-		conn.commit()
-		return cursor.fetchall()
 
 	def getSiteValuesById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)

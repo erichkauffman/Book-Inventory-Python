@@ -13,7 +13,7 @@ from initialize import socketio
 from config import database
 
 itemService = ItemService(ItemRepository(database), SiteRepository(database))
-bookService = BookService(BookRepository(database), SiteRepository(database), itemService)
+bookService = BookService(BookRepository(database), itemService)
 
 bookRoutes = Blueprint("books", __name__)
 
