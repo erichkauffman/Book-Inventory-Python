@@ -14,7 +14,7 @@ class BookRepository:
 		cursor = conn.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
 						  FROM book
 						  INNER JOIN item ON book.itemId = item.itemId
-						  INNER JOIN site ON book.itemId = site.itemId
+						  LEFT JOIN site ON book.itemId = site.itemId
 						  GROUP BY book.itemId''')
 		return cursor.fetchall()
 
@@ -53,12 +53,12 @@ class BookRepository:
 	def getSellableBooks(self):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = mini_factory
-		cursor = conn.execute('''SELECT item.itemId, title, upc, author, group_concat(site.siteId)
-						  FROM item
-						  INNER JOIN book ON item.itemId = book.itemId
-						  INNER JOIN site ON item.itemId = site.itemId
+		cursor = conn.execute('''SELECT book.itemId, title, upc, author, group_concat(site.siteId)
+						  FROM book
+						  INNER JOIN item ON book.itemId = item.itemId
+						  LEFT JOIN site ON book.itemId = site.itemId
 						  WHERE item.dateRemoved IS NULL
-						  GROUP BY item.itemId''')
+						  GROUP BY book.itemId''')
 		return cursor.fetchall()
 
 	def getBookById(self, itemId: int):
@@ -67,7 +67,7 @@ class BookRepository:
 		cursor = conn.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
 						  FROM book
 						  INNER JOIN item ON book.itemId = item.itemId
-						  INNER JOIN site ON book.itemId = site.itemId
+						  LEFT JOIN site ON book.itemId = site.itemId
 						  WHERE book.itemId = ?
 						  GROUP BY book.itemId''', (itemId,))
 		count = cursor.rowcount

@@ -16,7 +16,7 @@ class ItemRepository:
 		cursor = conn.cursor()
 		cursor.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
 						  FROM item
-						  INNER JOIN site ON item.itemId = site.itemId
+						  LEFT JOIN site ON item.itemId = site.itemId
 						  GROUP BY item.itemId''')
 		return cursor.fetchall()
 
@@ -80,7 +80,7 @@ class ItemRepository:
 		cursor = conn.cursor()
 		cursor.execute('''SELECT item.itemId, title, upc, group_concat(site.siteId)
 						  FROM item
-						  INNER JOIN site ON item.itemId = site.itemId
+						  LEFT JOIN site ON item.itemId = site.itemId
 						  WHERE dateRemoved IS NULL
 						  GROUP BY item.itemId''')
 		return cursor.fetchall()
@@ -91,7 +91,7 @@ class ItemRepository:
 		cursor = conn.cursor()
 		cursor.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
 						  FROM item
-						  INNER JOIN site ON item.itemId = site.itemId
+						  LEFT JOIN site ON item.itemId = site.itemId
 						  WHERE item.itemId = ?
 						  GROUP BY item.itemId''', (itemId,))
 		count = cursor.rowcount
