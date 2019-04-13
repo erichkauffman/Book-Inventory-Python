@@ -26,10 +26,12 @@ class SiteRepository:
 			sites.append(siteTuple[0])
 		return sites
 
-	def setSite(self, itemId: int, site: Site):
+	def setSites(self, itemId: int, sites: Site):
+		sitesInsert = []
+		for site in sites:
+			sitesInsert.append((itemId, site.site, site.siteId))
 		conn = sqlite3.connect(self.dbConnection)
-		cursor = conn.cursor()
-		cursor.execute('INSERT INTO site(itemId, site, siteId) VALUES (?,?,?)', (itemId, site.site, site.siteId))
+		conn.executemany('INSERT INTO site(itemId, site, siteId) VALUES (?,?,?)', (itemId, site.site, site.siteId))
 		conn.commit()
 
 	def editSite(self, itemId: int, sites: Site):
