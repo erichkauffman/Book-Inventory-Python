@@ -15,14 +15,12 @@ def itemAssembler(dictionary):
 		dictionary['consignment'],
 		dictionary['amountPaid'],
 		dictionary['sellPrice'],
-		None,
+		list(map(siteAssembler, dictionary['siteListed'])),
 		dictionary['shelfLocation'],
 		dictionary['removalAction'],
 		dictionary['siteSold'],
 		dictionary['dateRemoved']
 	)
-	if 'siteListed' in dictionary:
-		item.siteListed = list(map(siteAssembler, dictionary['siteListed']))
 	return item
 
 def bookAssembler(dictionary):

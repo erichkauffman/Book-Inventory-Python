@@ -11,10 +11,11 @@ class BookRepository:
 	def allBooks(self):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = book_factory
-		cursor = conn.cursor()
-		cursor.execute('''SELECT *
+		cursor = conn.execute('''SELECT book.*, item.*, group_concat(site.site), group_concat(site.siteId)
 						  FROM book
-						  INNER JOIN item ON book.itemId = item.itemId''')
+						  INNER JOIN item ON book.itemId = item.itemId
+						  LEFT JOIN site ON book.itemId = site.itemId
+						  GROUP BY book.itemId''')
 		return cursor.fetchall()
 
 
@@ -27,8 +28,7 @@ class BookRepository:
 			book.item.itemId
  		)
 		conn = sqlite3.connect(self.dbConnection)
-		cursor = conn.cursor()
-		cursor.execute('''INSERT INTO book
+		conn.execute('''INSERT INTO book
 						  (author, edition, printing, cover, itemId)
 						  VALUES(?,?,?,?,?)''', bookInsert)
 		conn.commit()
@@ -42,8 +42,7 @@ class BookRepository:
 			book.item.itemId
 		)
 		conn = sqlite3.connect(self.dbConnection)
-		cursor = conn.cursor()
-		cursor.execute('''UPDATE book SET author = ?, edition = ?,
+		cursor = conn.execute('''UPDATE book SET author = ?, edition = ?,
 						  printing = ?, cover = ?
 						  WHERE itemId = ?''', bookInsert)
 		count = cursor.rowcount
@@ -54,23 +53,23 @@ class BookRepository:
 	def getSellableBooks(self):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = mini_factory
-		cursor = conn.cursor()
-		cursor.execute('''SELECT item.itemId, title, upc, author, group_concat(site.siteId)
-						  FROM item
-						  INNER JOIN book ON item.itemId = book.itemId
-						  INNER JOIN site ON item.itemId = site.itemId
+		cursor = conn.execute('''SELECT book.itemId, title, upc, author, group_concat(site.siteId)
+						  FROM book
+						  INNER JOIN item ON book.itemId = item.itemId
+						  LEFT JOIN site ON book.itemId = site.itemId
 						  WHERE item.dateRemoved IS NULL
-						  GROUP BY item.itemId''')
+						  GROUP BY book.itemId''')
 		return cursor.fetchall()
 
 	def getBookById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = book_factory
-		cursor = conn.cursor()
-		cursor.execute('''SELECT *
+		cursor = conn.execute('''SELECT book.*, item.*, group_concat(site.site), group_concat(site.siteId)
 						  FROM book
 						  INNER JOIN item ON book.itemId = item.itemId
-						  WHERE book.itemId = ?''', (itemId,))
+						  LEFT JOIN site ON book.itemId = site.itemId
+						  WHERE book.itemId = ?
+						  GROUP BY book.itemId''', (itemId,))
 		count = cursor.rowcount
 		book = cursor.fetchone()
 		if not count:

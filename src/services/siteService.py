@@ -5,14 +5,11 @@ class SiteService:
 	def __init__(self, siteRepository: SiteRepository):
 		self.siteRepo = siteRepository
 
-	def getSitesById(self, itemId: int):
-		return self.siteRepo.getSitesById(itemId)
-
 	def getSiteValuesById(self, itemId: int):
 		return self.siteRepo.getSiteValuesById(itemId)
 
-	def setSite(self, site: Site):
-		self.siteRepo.setSite(site)
+	def setSites(self, site: Site):
+		self.siteRepo.setSites(site)
 
-	def editSite(self, siteList: Site):
-		self.siteRepo.editSite(siteList)
+	def editSites(self, siteList: Site):
+		self.siteRepo.editSites(siteList)

@@ -1,13 +1,11 @@
 from repositories.bookRepository import BookRepository
-from services.siteService import SiteService
 from services.itemService import ItemService
 from data.Book import Book
 from lib.itemCsv import bookCsv
 
 class BookService:
-	def __init__(self, bookRepository: BookRepository, siteService: SiteService, itemService: ItemService):
+	def __init__(self, bookRepository: BookRepository, itemService: ItemService):
 		self.bookRepo = bookRepository
-		self.siteService = siteService
 		self.itemService = itemService
 
 	def createBook(self, book: Book):
@@ -24,9 +22,7 @@ class BookService:
 		return self.bookRepo.getSellableBooks()
 
 	def getBookById(self, itemId: int):
-		book = self.bookRepo.getBookById(itemId)
-		book.item.siteListed = self.siteService.getSitesById(itemId)
-		return book
+		return self.bookRepo.getBookById(itemId)
 
 	def buildCsv(self):
 		csv = ''
