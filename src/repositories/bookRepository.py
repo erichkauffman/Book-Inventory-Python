@@ -11,7 +11,7 @@ class BookRepository:
 	def allBooks(self):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = book_factory
-		cursor = conn.execute('''SELECT book.*, group_concat(site.site), group_concat(site.siteId)
+		cursor = conn.execute('''SELECT book.*, item.*, group_concat(site.site), group_concat(site.siteId)
 						  FROM book
 						  INNER JOIN item ON book.itemId = item.itemId
 						  LEFT JOIN site ON book.itemId = site.itemId
@@ -64,7 +64,7 @@ class BookRepository:
 	def getBookById(self, itemId: int):
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = book_factory
-		cursor = conn.execute('''SELECT book.*, group_concat(site.site), group_concat(site.siteId)
+		cursor = conn.execute('''SELECT book.*, item.*, group_concat(site.site), group_concat(site.siteId)
 						  FROM book
 						  INNER JOIN item ON book.itemId = item.itemId
 						  LEFT JOIN site ON book.itemId = site.itemId
