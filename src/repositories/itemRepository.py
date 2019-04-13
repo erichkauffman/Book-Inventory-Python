@@ -14,7 +14,7 @@ class ItemRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = item_factory
 		cursor = conn.cursor()
-		cursor.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
+		cursor.execute('''SELECT item.*, group_concat(site.site), group_concat(site.siteId)
 						  FROM item
 						  LEFT JOIN site ON item.itemId = site.itemId
 						  GROUP BY item.itemId''')
@@ -89,7 +89,7 @@ class ItemRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = item_factory
 		cursor = conn.cursor()
-		cursor.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
+		cursor.execute('''SELECT item.*, group_concat(site.site), group_concat(site.siteId)
 						  FROM item
 						  LEFT JOIN site ON item.itemId = site.itemId
 						  WHERE item.itemId = ?
