@@ -27,7 +27,7 @@ def item_factory(cursor, row):
 	return itemAssembler(dictionary)
 
 def book_factory(cursor, row):
-	dictionary = generic_factory(cursor, row)
+	dictionary = factory_helper(cursor, row)
 	return bookAssembler(dictionary)
 
 def site_factory(cursor, row):
