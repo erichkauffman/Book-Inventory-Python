@@ -75,7 +75,11 @@ class ItemRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = mini_factory
 		cursor = conn.cursor()
-		cursor.execute('SELECT itemId, title, upc FROM item WHERE dateRemoved IS NULL')
+		cursor.execute('''SELECT item.itemId, title, upc, group_concat(site.siteId)
+						  FROM item
+						  INNER JOIN site ON item.itemId = site.itemId
+						  WHERE dateRemoved IS NULL
+						  GROUP BY item.itemId''')
 		return cursor.fetchall()
 
 	def getItemById(self, itemId: int):
