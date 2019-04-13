@@ -1,4 +1,4 @@
-from lib.convert import itemAssembler, bookAssembler, siteAssembler
+from lib.convert import itemAssembler, bookAssembler
 
 def factory_helper(cursor, row):
 	dictionary = {}
