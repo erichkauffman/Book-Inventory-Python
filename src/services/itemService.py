@@ -10,8 +10,7 @@ class ItemService:
 
 	def createItem(self, item: Item):
 		itemId = self.itemRepo.createNewItem(item)
-		for site in item.siteListed:
-			self.siteService.setSite(itemId, site)
+		self.siteService.setSites(itemId, item.siteListed)
 		return itemId
 
 	def editItem(self, item: Item):
