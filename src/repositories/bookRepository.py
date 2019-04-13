@@ -55,10 +55,12 @@ class BookRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = mini_factory
 		cursor = conn.cursor()
-		cursor.execute('''SELECT item.itemId, title, upc, author
+		cursor.execute('''SELECT item.itemId, title, upc, author, group_concat(site.siteId)
 						  FROM item
 						  INNER JOIN book ON item.itemId = book.itemId
-						  WHERE item.dateRemoved IS NULL''')
+						  INNER JOIN site ON item.itemId = site.itemId
+						  WHERE item.dateRemoved IS NULL
+						  GROUP BY item.itemId''')
 		return cursor.fetchall()
 
 	def getBookById(self, itemId: int):
