@@ -11,8 +11,8 @@ class SiteService:
 	def getSiteValuesById(self, itemId: int):
 		return self.siteRepo.getSiteValuesById(itemId)
 
-	def setSite(self, site: Site):
-		self.siteRepo.setSite(site)
+	def setSites(self, site: Site):
+		self.siteRepo.setSites(site)
 
 	def editSite(self, siteList: Site):
 		self.siteRepo.editSite(siteList)
