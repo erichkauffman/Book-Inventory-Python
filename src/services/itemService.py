@@ -21,9 +21,7 @@ class ItemService:
 		return self.itemRepo.getSellableItems()
 
 	def getItemById(self, itemId: int):
-		item = self.itemRepo.getItemById(itemId)
-		item.siteListed = self.siteService.getSitesById(itemId)
-		return item
+		return self.itemRepo.getItemById(itemId)
 
 	def updateRemoveAction(self, itemId: int, status: int):
 		self.itemRepo.updateRemoveAction(itemId, status)
@@ -34,8 +32,6 @@ class ItemService:
 	def buildCsv(self):
 		csv = ''
 		itemList = self.itemRepo.allItems()
-		for index, item in enumerate(itemList):
-			itemList[index].siteListed = self.siteService.getSitesById(item.itemId)
 		for item in itemList:
 			csv += itemCsv(item) + '\n'
 		return csv

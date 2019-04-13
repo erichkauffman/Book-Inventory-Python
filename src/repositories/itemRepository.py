@@ -14,7 +14,10 @@ class ItemRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = item_factory
 		cursor = conn.cursor()
-		cursor.execute('SELECT * FROM item')
+		cursor.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
+						  FROM item
+						  INNER JOIN site ON item.itemId = site.itemId
+						  GROUP BY item.itemId''')
 		return cursor.fetchall()
 
 	def createNewItem(self, item: Item):
@@ -86,7 +89,11 @@ class ItemRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.row_factory = item_factory
 		cursor = conn.cursor()
-		cursor.execute('SELECT * FROM item WHERE itemId = ?', (itemId,))
+		cursor.execute('''SELECT *, group_concat(site.site), group_concat(site.siteId)
+						  FROM item
+						  INNER JOIN site ON item.itemId = site.itemId
+						  WHERE item.itemId = ?
+						  GROUP BY item.itemId''', (itemId,))
 		count = cursor.rowcount
 		item = cursor.fetchone()
 		if not count:
