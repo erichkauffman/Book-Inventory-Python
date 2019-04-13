@@ -24,9 +24,7 @@ class BookService:
 		return self.bookRepo.getSellableBooks()
 
 	def getBookById(self, itemId: int):
-		book = self.bookRepo.getBookById(itemId)
-		book.item.siteListed = self.siteService.getSitesById(itemId)
-		return book
+		return self.bookRepo.getBookById(itemId)
 
 	def buildCsv(self):
 		csv = ''
