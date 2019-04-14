@@ -4,6 +4,7 @@ from routes.books import bookRoutes
 from routes.items import itemRoutes
 from routes.sites import siteRoutes
 from routes.savedData import savedDataRoutes
+from routes.issues import issueRoutes
 import flask_cors
 import os
 
@@ -14,6 +15,7 @@ app.register_blueprint(bookRoutes, url_prefix='/books')
 app.register_blueprint(itemRoutes, url_prefix='/items')
 app.register_blueprint(siteRoutes, url_prefix='/sites')
 app.register_blueprint(savedDataRoutes, url_prefix='/savedData')
+app.register_blueprint(issueRoutes, url_prefix='/issues')
 
 @app.route('/')
 def index():
