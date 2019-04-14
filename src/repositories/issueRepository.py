@@ -8,5 +8,5 @@ class IssueRepository:
 		conn = sqlite3.connect(self.dbConnection)
 		conn.execute('''INSERT INTO issue
 						(type, title, message, dateReceived)
-						VALUES(?,?,?,?,date('now'))''')
+						VALUES(?,?,?,date('now'))''', (issue['type'], issue['title'], issue['message']))
 		conn.commit()
