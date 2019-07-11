@@ -26,7 +26,7 @@ cd into `src/` and run `python -m pytest`
 ### Building a Docker image
 
 1. Make sure you have Docker installed on your machine.
-2. Make sure you are in the top level directory and run the command `docker build -t mynamehere .`
+2. Make sure you are in the top level directory and run the command `docker build -t mynamehere .` Be sure that the `APIENV` environment variable has been set.
 
 ### Running a Docker Container
 
