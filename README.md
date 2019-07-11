@@ -12,7 +12,9 @@
 4. Once you have your database set up, you will need to set up the tables in the database. Run the contents of `src/sqlscripts/create_*_table.sql` in your database to create the necessary tables. If you would like to have pre-populated data in the database, feel free to run the `insert_*_example.sql`.
 5. If you did not place your database in the recommended location, you will have to tell the API where the database is located via the config file.
    - In `config.py`, rename `db/inventory.db` to the actual path to your database.
-6. The API should now be ready to run.
+6. Add the environment variable to your environment which tell the API which environment it is running in.
+   - `export APIENV='Development'`
+7. The API should now be ready to run.
    - `cd src/`
    - `python app.py` 
    - Head over to `localhost:5000` to be greeted by a friendly `Hello!`
