@@ -18,26 +18,28 @@ def test_book_route_when_a_post_request_is_made(mock_createBook):
 
 	restResult = restTestApp.post('/books/',
 		json={
-			'amountPaid': 2000,
+			'item': {
+				'amountPaid': 2000,
+				'condition': 2,
+				'consignment': False,
+				'datePurchased': '2016-12-6',
+				'dateRemoved': None,
+				'description': 'A very good book for practicing algorithms',
+				'itemId': None,
+				'upc': testUpc,
+				'locationPurchased': 'Online',
+				'removalAction': None,
+				'sellPrice': 1200,
+				'shelfLocation': 'A1',
+				'siteListed': [{'site':1, 'siteId':1234567890}],
+				'siteSold': None,
+				'title': testTitle,
+				'year': 2015
+			},
 			'author': testAuthor,
-			'condition': 2,
-			'consignment': False,
 			'cover': 1,
-			'datePurchased': '2016-12-6',
-			'dateRemoved': None,
-			'description': 'A very good book for practicing algorithms',
 			'edition': 1,
-			'itemId': None,
-			'upc': testUpc,
-			'locationPurchased': 'Online',
-			'printing': 1,
-			'removalAction': None,
-			'sellPrice': 1200,
-			'shelfLocation': 'A1',
-			'siteListed': [{'site':1, 'siteId':1234567890}],
-			'siteSold': None,
-			'title': testTitle,
-			'year': 2015
+			'printing': 1
 		}
 	)
 	socketResult = socketTestApp.get_received()
@@ -61,26 +63,28 @@ def test_book_routes_when_a_put_request_is_made(mock_bookItem):
 
 	restResult = restTestApp.put('/books/',
 		json={
-			'amountPaid': 2000,
+			'item': {
+				'amountPaid': 2000,
+				'condition': 2,
+				'consignment': False,
+				'datePurchased': '2016-12-6',
+				'dateRemoved': None,
+				'description': 'A very good book for practicing algorithms',
+				'itemId': testItemId,
+				'upc': testUpc,
+				'locationPurchased': 'Online',
+				'removalAction': None,
+				'sellPrice': 1200,
+				'shelfLocation': 'A1',
+				'siteListed': [{'site':1, 'siteId':1234567890}],
+				'siteSold': None,
+				'title': testTitle,
+				'year': 2015
+			},
 			'author': testAuthor,
-			'condition': 2,
-			'consignment': False,
 			'cover': 1,
-			'datePurchased': '2016-12-6',
-			'dateRemoved': None,
-			'description': 'A very good book for practicing algorithms',
 			'edition': 1,
-			'itemId': testItemId,
-			'upc': testUpc,
-			'locationPurchased': 'Online',
 			'printing': 1,
-			'removalAction': None,
-			'sellPrice': 1200,
-			'shelfLocation': 'A1',
-			'siteListed': [{'site':1, 'siteId':1234567890}],
-			'siteSold': None,
-			'title': testTitle,
-			'year': 2015
 		}
 	)
 	socketResult = socketTestApp.get_received()

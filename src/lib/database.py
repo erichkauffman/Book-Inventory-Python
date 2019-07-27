@@ -1,4 +1,4 @@
-from lib.convert import itemAssembler, bookAssembler
+from lib.convert import itemAssembler, bookFromDatabaseAssembler
 
 def factory_helper(cursor, row):
 	dictionary = {}
@@ -22,7 +22,7 @@ def item_factory(cursor, row):
 
 def book_factory(cursor, row):
 	dictionary = factory_helper(cursor, row)
-	return bookAssembler(dictionary)
+	return bookFromDatabaseAssembler(dictionary)
 
 def mini_factory(cursor, row):
 	dictionary = {}

@@ -6,7 +6,7 @@ from services.itemService import ItemService
 from repositories.bookRepository import BookRepository
 from repositories.itemRepository import ItemRepository
 from repositories.siteRepository import SiteRepository
-from lib.convert import bookAssembler
+from lib.convert import bookFromRequestAssembler
 from lib.response import makeJson, makeJsonResponse, makeCsvResponse
 from lib.exceptions import DatabaseIndexError
 from initialize import socketio
@@ -22,7 +22,7 @@ def books():
 	if request.method == 'POST':
 		try:
 			jsonreq = request.get_json(force=True)
-			postedBook = bookAssembler(jsonreq)
+			postedBook = bookFromRequestAssembler(jsonreq)
 			itemId = bookService.createBook(postedBook)
 			mini = {'itemId': itemId,
 					'title': postedBook.item.title,
@@ -39,7 +39,7 @@ def books():
 	elif request.method == 'PUT':
 		try:
 			jsonreq = request.get_json(force=True)
-			putBook = bookAssembler(jsonreq)
+			putBook = bookFromRequestAssembler(jsonreq)
 			bookService.editBook(putBook)
 			mini = {'itemId': putBook.item.itemId,
 					'title': putBook.item.title,
