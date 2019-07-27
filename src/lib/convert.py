@@ -23,11 +23,18 @@ def itemAssembler(dictionary):
 	)
 	return item
 
-def bookAssembler(dictionary):
-	if 'item' in dictionary:
-		item = itemAssembler(dictionary['item'])
-	else:
-		item = itemAssembler(dictionary)
+def bookFromDatabaseAssembler(dictionary):
+	item = itemAssembler(dictionary)
+	return Book(
+		item,
+		dictionary['author'],
+		dictionary['edition'],
+		dictionary['printing'],
+		dictionary['cover']
+	)
+
+def bookFromRequestAssembler(dictionary):
+	item = itemAssembler(dictionary['item'])
 	return Book(
 		item,
 		dictionary['author'],
