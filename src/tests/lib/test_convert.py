@@ -1,4 +1,4 @@
-from lib.convert import itemAssembler, bookAssembler, siteAssembler
+from lib.convert import itemAssembler, bookFromDatabaseAssembler, bookFromRequestAssembler, siteAssembler
 
 def test_site_assembler():
 	siteDict = {
@@ -47,7 +47,7 @@ def test_item_assembler():
 	assert itemObject.removalAction is None
 	assert itemObject.dateRemoved is None
 
-def test_book_assembler_when_item_is_a_subdictionary():
+def test_book_assembler_when_item_is_from_a_request():
 	bookDict = {
 		'item': {
 			'amountPaid': 2000,
@@ -72,7 +72,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 		'edition': 6,
 		'printing': 15
 	}
-	bookObject = bookAssembler(bookDict)
+	bookObject = bookFromRequestAssembler(bookDict)
 	assert bookObject.item.itemId == 5
 	assert bookObject.item.title == "Cracking the Coding Interview"
 	assert bookObject.author == "Gayle Laakmann McDowell"
@@ -95,7 +95,7 @@ def test_book_assembler_when_item_is_a_subdictionary():
 	assert bookObject.item.removalAction is None
 	assert bookObject.item.dateRemoved is None
 
-def test_book_assembler_when_item_is_not_a_subdictionary():
+def test_book_assembler_when_item_is_from_the_database():
 	bookDict = {
 		'amountPaid': 2000,
 		'condition': 2,
@@ -119,7 +119,7 @@ def test_book_assembler_when_item_is_not_a_subdictionary():
 		'printing': 15
 	}
 
-	bookObject = bookAssembler(bookDict)
+	bookObject = bookFromDatabaseAssembler(bookDict)
 	assert bookObject.item.itemId == 5
 	assert bookObject.item.title == "Cracking the Coding Interview"
 	assert bookObject.author == "Gayle Laakmann McDowell"
