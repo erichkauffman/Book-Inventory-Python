@@ -2,20 +2,22 @@
 
 ### Getting Started
 
-1. Install the python dependencies via pip. All the dependencies are listed in the `requirements.txt`
+1. (Optional) Install virtualenv `pip install virtualenv`. In the top level directory, run `virtualenv yourVirtualEnv` (or whatever you would like to name the directory.) Then activate the virtualenv by running `source yourVirtualEnv/bin/activate`.
+2. Install the python dependencies via pip. All the dependencies are listed in the `requirements.txt`
    - Run `pip install -r requirements.txt`
-2. Create a sqlite database. We recommend creating a directory in the top level directory next to `src/` and placing your database there. 
+3. Create a sqlite database. We recommend creating a directory in the top level directory and placing your database there. 
    - `mkdir db`
    - `cd db`
    - `sqlite3 inventory.db`
-3. Once you have your database set up, you will need to set up the tables in the database. Run the contents of `src/sqlscripts/create_book_table.sql` in your database to create the necessary table. If you would like to have pre-populated data in the database, feel free to run the `insert_book_example.sql`
-4. Next, you will have to create a config file to tell the API where the database is located. Use `config.example.py` as a guide.
-   - `cp config.example.py ./config.py`
-   - Rename `path/to/database.db` to the actual path to your database. Remember, this path is relative to where you run the app, so if you run the app at the top level directory, the path would look like this: `db/inventory.db`. But if you run the program in `src/`, then the path might look like this: `../db/inventory.db`
-5. Remeber to set up your prefered flask configurations, such as setting the app, address, port, environment, etc.
-6. The API should now be ready to run.
-   - `flask run` 
-   - Head over to `localhost:5000` or your prefered address:port to be greeted by a friendly `Hello!`
+4. Once you have your database set up, you will need to set up the tables in the database. Run the contents of `src/sqlscripts/create_*_table.sql` in your database to create the necessary tables. If you would like to have pre-populated data in the database, feel free to run the `insert_*_example.sql`.
+5. If you did not place your database in the recommended location, you will have to tell the API where the database is located via the config file.
+   - In `config.py`, rename `db/inventory.db` to the actual path to your database.
+6. Add the environment variable to your environment which tell the API which environment it is running in.
+   - `export APIENV='Development'`
+7. The API should now be ready to run.
+   - `cd src/`
+   - `python app.py` 
+   - Head over to `localhost:5000` to be greeted by a friendly `Hello!`
 
 ### Running Tests
 
@@ -24,7 +26,7 @@ cd into `src/` and run `python -m pytest`
 ### Building a Docker image
 
 1. Make sure you have Docker installed on your machine.
-2. Make sure you are in the top level directory and run the command `docker build -t mynamehere .`
+2. Make sure you are in the top level directory and run the command `docker build -t mynamehere .` Be sure that the `APIENV` environment variable has been set.
 
 ### Running a Docker Container
 
