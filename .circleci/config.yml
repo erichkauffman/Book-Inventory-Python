@@ -16,6 +16,8 @@ jobs:
             pip install -r requirements.txt
             cd src/
             python -m pytest
+          environment:
+            APIENV: Testing
       - save_cache:
           key: v2-{{ checksum "requirements.txt" }}
           paths:

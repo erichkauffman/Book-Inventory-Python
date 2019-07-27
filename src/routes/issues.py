@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, request
 
 from services.issueService import IssueService
@@ -5,7 +6,7 @@ from repositories.issueRepository import IssueRepository
 from lib.response import makeJsonResponse
 from config import database
 
-issueService = IssueService(IssueRepository(database))
+issueService = IssueService(os.environ['APIENV'], IssueRepository(database))
 
 issueRoutes = Blueprint("issues", __name__)
 
